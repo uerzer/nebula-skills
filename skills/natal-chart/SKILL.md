@@ -96,7 +96,7 @@ city="New York"
 
 5. **Generate SVG visualization**:
    ```python
-   chart = KerykeionChartSVG(subject)
+   chart = KerykerionChartSVG(subject)
    chart.makeSVG()
    # SVG saved to: /root/{name} - Natal Chart.svg
    ```
@@ -198,7 +198,7 @@ city="New York"
 <example_usage>
 **Recommended usage (with explicit coordinates):**
 ```python
-from kerykeion import AstrologicalSubject, KerykeionChartSVG, NatalAspects
+from kerykeion import AstrologicalSubject, KerykerionChartSVG, NatalAspects
 
 # Create subject with explicit coordinates (avoids GeoNames failures)
 subject = AstrologicalSubject(
@@ -231,7 +231,7 @@ for aspect in aspects.all_aspects[:5]:
     print(f"{aspect.p1_name} {aspect.aspect} {aspect.p2_name} (orb: {aspect.orbit:.2f}°)")
 
 # Generate chart
-chart = KerykeionChartSVG(subject)
+chart = KerykerionChartSVG(subject)
 chart.makeSVG()
 # SVG saved to: /root/Carl Jung - Natal Chart.svg
 
