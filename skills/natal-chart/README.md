@@ -1,6 +1,6 @@
 # Natal Chart Generation Skill
 
-A battle-tested skill for generating accurate natal/birth charts following the TACHES methodology.
+A battle-tested skill for generating accurate natal/birth charts following the TÂCHES methodology.
 
 ## What This Skill Does
 
@@ -67,7 +67,7 @@ Successfully generated natal chart for Carl Jung (b. July 26, 1875, 19:20, Kessw
 
 ## Key Learnings (Heal-Skill Process)
 
-This skill was developed following TACHES methodology with expected failures and fixes:
+This skill was developed following TÂCHES methodology with expected failures and fixes:
 
 1. **Failure**: ModuleNotFoundError → **Fix**: Install kerykeion
 2. **Failure**: GeoNames API lookup failed → **Fix**: Always use explicit lat/lng/tz_str
@@ -84,7 +84,7 @@ This skill was developed following TACHES methodology with expected failures and
 
 ## Why This Works
 
-Following TACHES best practices:
+Following TÂCHES best practices:
 - ✅ Library research documented (Kerykeion vs alternatives)
 - ✅ Progressive disclosure (errors led to fixes)
 - ✅ Heal-skill pattern (fixes captured in docs)
@@ -93,4 +93,4 @@ Following TACHES best practices:
 
 ## Credits
 
-Created using the TACHES methodology inspired by Taches Teaches' "This Claude Code Skill Creates Claude Code Skills For You" video.
+Created using the TÂCHES methodology inspired by Tâches Teaches' "This Claude Code Skill Creates Claude Code Skills For You" video.
