@@ -1,6 +1,6 @@
 # Opportunity Scanner Progress Tracking
 
-Last Updated: 2026-02-12 23:01 UTC
+Last Updated: 2026-02-12 23:00 UTC
 
 ## Executive Summary
 
@@ -285,8 +285,8 @@ Last Updated: 2026-02-12 23:01 UTC
 - ✅ unified-scorer/unified_opportunity_scorer.py (25.6 KB)
 
 ### Pending
-- ⏳ Hourly backup trigger (scanner outputs + logs)
-- ⏳ Daily backup trigger (memory context + research)
+- ✅ Hourly backup trigger (scanner outputs + logs) - ACTIVE: @trigger:hourly-scanner-backup (Last run: 2026-02-12 23:00 UTC - SUCCESS)
+- ✅ Daily backup trigger (memory context + research) - ACTIVE: @trigger:daily-github-backup-opportunity-intelligence
 - ⏳ Recovery playbook documentation
 
 ---
