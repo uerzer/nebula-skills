@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — You're In</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+nav{display:flex;justify-content:center;padding:18px;border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.logo em{color:#fff;font-style:normal}
+
+.hero{text-align:center;padding:70px 20px 50px;background:radial-gradient(ellipse at 50% 0%,rgba(46,204,113,.08) 0%,transparent 60%)}
+.confirm-icon{font-size:64px;margin-bottom:20px;animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(0)}80%{transform:scale(1.15)}100%{transform:scale(1)}}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,48px);margin-bottom:12px}
+.hero h1 span{color:var(--gold)}
+.hero p{color:var(--muted);font-size:16px;max-width:500px;margin:0 auto;line-height:1.6}
+
+/* ORDER SUMMARY */
+.summary-wrap{max-width:680px;margin:0 auto;padding:0 20px 60px}
+.order-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:20px}
+.order-card h3{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.order-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(30,30,53,.8);font-size:14px}
+.order-item:last-of-type{border-bottom:none}
+.order-item .name{color:var(--text)}
+.order-item .price{color:var(--gold);font-weight:700}
+.order-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0 0;font-size:16px;font-weight:700;border-top:1px solid var(--border);margin-top:4px}
+.order-total .t-price{color:var(--gold);font-size:20px}
+
+/* DELIVERY SECTION */
+.delivery-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:20px}
+.delivery-card h3{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+.delivery-item{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid rgba(30,30,53,.8)}
+.delivery-item:last-child{border-bottom:none}
+.d-icon{font-size:22px;width:36px;text-align:center;flex-shrink:0;margin-top:2px}
+.d-body h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.d-body p{font-size:13px;color:var(--muted);line-height:1.5}
+.d-status{margin-left:auto;flex-shrink:0}
+.status-pill{font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px}
+.status-sent{background:rgba(46,204,113,.12);color:#2ecc71;border:1px solid rgba(46,204,113,.25)}
+.status-ready{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.25)}
+
+/* COSMIC IDENTITY CARD */
+.identity-card{background:linear-gradient(135deg,#0d0d20,#1a0d2e);border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:36px;margin-bottom:20px;text-align:center;position:relative;overflow:hidden}
+.identity-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c9a84c,#9b59b6,#3498db,#2ecc71)}
+.ic-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ic-name{font-family:'Playfair Display',serif;font-size:28px;margin-bottom:4px;color:var(--gold)}
+.ic-tagline{font-size:13px;color:var(--muted);margin-bottom:28px;font-style:italic}
+.ic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:24px}
+@media(min-width:480px){.ic-grid{grid-template-columns:repeat(4,1fr)}}
+.ic-item{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:12px;padding:14px 10px}
+.ic-item-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.ic-item-val{font-size:18px;font-weight:900;color:#fff;margin-bottom:2px}
+.ic-item-sub{font-size:11px;color:var(--muted)}
+.share-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.share-btn{padding:10px 20px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;border:none;transition:all .2s;display:flex;align-items:center;gap:6px}
+.share-tt{background:#000;color:#fff;border:1px solid #333}
+.share-tt:hover{background:#111}
+.share-ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);color:#fff}
+.share-ig:hover{opacity:.9}
+.share-tw{background:#1da1f2;color:#fff}
+.share-tw:hover{opacity:.9}
+.share-copy{background:rgba(201,168,76,.12);color:var(--gold);border:1px solid rgba(201,168,76,.25)}
+.share-copy:hover{background:rgba(201,168,76,.2)}
+
+/* NEXT STEPS */
+.next-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:20px}
+.next-card h3{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.step-item{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+.step-item:last-child{margin-bottom:0}
+.step-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,rgba(201,168,76,.2),rgba(201,168,76,.05));border:1px solid rgba(201,168,76,.3);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:var(--gold);flex-shrink:0}
+.step-body h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.step-body p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* REFERRAL */
+.referral-card{background:linear-gradient(135deg,rgba(201,168,76,.06),rgba(155,89,182,.06));border:1px solid rgba(201,168,76,.15);border-radius:16px;padding:28px;margin-bottom:20px;text-align:center}
+.referral-card h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.referral-card p{font-size:14px;color:var(--muted);margin-bottom:20px;line-height:1.5}
+.ref-link-box{display:flex;gap:10px;max-width:420px;margin:0 auto}
+.ref-link-box input{flex:1;padding:12px 14px;background:#080814;border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:13px;font-family:'Inter',sans-serif}
+.ref-copy-btn{padding:12px 18px;background:var(--gold);border:none;border-radius:10px;color:#000;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap}
+
+footer{padding:40px 20px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--muted)}
+.flinks{display:flex;justify-content:center;gap:22px;margin-top:12px;flex-wrap:wrap}
+.flinks a{color:var(--muted);text-decoration:none}
+.flinks a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+<nav><div class="logo">COS<em>MO</em></div></nav>
+
+<section class="hero">
+  <div class="confirm-icon">&#10004;&#65039;</div>
+  <h1>You're In, <span id="fname-display">Explorer</span>.</h1>
+  <p>Your complete cosmic blueprint is being prepared. Check your email — it'll be there within 2 minutes. Everything you ordered is below.</p>
+</section>
+
+<div class="summary-wrap">
+
+  <!-- ORDER SUMMARY -->
+  <div class="order-card">
+    <h3>Order Summary</h3>
+    <div id="order-items">
+      <div class="order-item"><span class="name">COSMO Free Blueprint (3 reveals)</span><span class="price">Free</span></div>
+    </div>
+    <div class="order-total"><span>Total Charged Today</span><span class="t-price" id="order-total">$0.00</span></div>
+  </div>
+
+  <!-- DELIVERY -->
+  <div class="delivery-card">
+    <h3>Your Deliverables</h3>
+    <div class="delivery-item">
+      <div class="d-icon">&#128238;</div>
+      <div class="d-body"><h4>Confirmation Email</h4><p>Sent to <span id="email-display">your email</span> — includes all your download links and access details.</p></div>
+      <div class="d-status"><div class="status-pill status-sent">Sent</div></div>
+    </div>
+    <div class="delivery-item" id="report-delivery" style="display:none">
+      <div class="d-icon">&#128196;</div>
+      <div class="d-body"><h4>Full Blueprint PDF (40 pages)</h4><p>Personalized report with all 4 systems — delivered in your email within 2 minutes.</p></div>
+      <div class="d-status"><div class="status-pill status-sent">Sending</div></div>
+    </div>
+    <div class="delivery-item" id="compat-delivery" style="display:none">
+      <div class="d-icon">&#10084;&#65039;</div>
+      <div class="d-body"><h4>Compatibility Reading PDF</h4><p>Your full relationship cosmic profile — in the same email.</p></div>
+      <div class="d-status"><div class="status-pill status-sent">Sending</div></div>
+    </div>
+    <div class="delivery-item" id="card-delivery" style="display:none">
+      <div class="d-icon">&#127358;</div>
+      <div class="d-body"><h4>COSMO Identity Card</h4><p>Your premium printable identity card — attached in your email.</p></div>
+      <div class="d-status"><div class="status-pill status-sent">Sending</div></div>
+    </div>
+    <div class="delivery-item" id="member-delivery" style="display:none">
+      <div class="d-icon">&#11088;</div>
+      <div class="d-body"><h4>Member Dashboard Access</h4><p>Your first daily reading arrives tomorrow morning. Dashboard link in your email.</p></div>
+      <div class="d-status"><div class="status-pill status-ready">Tomorrow</div></div>
+    </div>
+  </div>
+
+  <!-- COSMIC IDENTITY CARD -->
+  <div class="identity-card" id="identity-card">
+    <div class="ic-label">Your COSMO Identity</div>
+    <div class="ic-name" id="ic-name">Explorer</div>
+    <div class="ic-tagline" id="ic-tagline">The Intuitive Seeker &bull; 2026</div>
+    <div class="ic-grid">
+      <div class="ic-item">
+        <div class="ic-item-label">&#9728;&#65039; Sun Sign</div>
+        <div class="ic-item-val" id="ic-sun">Scorpio</div>
+        <div class="ic-item-sub">Outer self</div>
+      </div>
+      <div class="ic-item">
+        <div class="ic-item-label">&#8734;&#65039; Life Path</div>
+        <div class="ic-item-val" id="ic-lp">7</div>
+        <div class="ic-item-sub">Soul mission</div>
+      </div>
+      <div class="ic-item">
+        <div class="ic-item-label">&#9670;&#65039; Type</div>
+        <div class="ic-item-val" id="ic-mbti">INFJ</div>
+        <div class="ic-item-sub">Cognitive style</div>
+      </div>
+      <div class="ic-item">
+        <div class="ic-item-label">&#10022;&#65039; HD Type</div>
+        <div class="ic-item-val" id="ic-hd">Projector</div>
+        <div class="ic-item-sub">Energy design</div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:16px">Share your cosmic identity</div>
+    <div class="share-row">
+      <button class="share-btn share-tt" onclick="shareTo('tiktok')">&#9654; TikTok</button>
+      <button class="share-btn share-ig" onclick="shareTo('instagram')">&#9679; Instagram</button>
+      <button class="share-btn share-tw" onclick="shareTo('twitter')">&#10148; Twitter/X</button>
+      <button class="share-btn share-copy" onclick="copyCard()">&#128203; Copy</button>
+    </div>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="next-card">
+    <h3>What Happens Next</h3>
+    <div class="step-item">
+      <div class="step-num">1</div>
+      <div class="step-body"><h4>Check Your Email (2 mins)</h4><p>All your downloads and access links are arriving now. Check your spam folder if you don't see it.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">2</div>
+      <div class="step-body"><h4>Read Your Full Blueprint</h4><p>Set aside 30 minutes. Read it slowly. The sections that feel the most accurate are usually the ones that need the most attention.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">3</div>
+      <div class="step-body"><h4>Share Your Identity Card</h4><p>Post it, send it to a friend, use it as a conversation starter. The reactions are always interesting.</p></div>
+    </div>
+    <div class="step-item">
+      <div class="step-num">4</div>
+      <div class="step-body"><h4>Do a Partner's Blueprint</h4><p>The most interesting insights come from comparing two blueprints side by side. <a href="index.html" style="color:var(--gold)">Start a new one here.</a></p></div>
+    </div>
+  </div>
+
+  <!-- REFERRAL -->
+  <div class="referral-card">
+    <h3>&#127381; Share &amp; Earn</h3>
+    <p>Get $5 credit for every friend who completes their free blueprint. Credits apply to any future purchase automatically.</p>
+    <div class="ref-link-box">
+      <input type="text" id="ref-link" value="https://cosmo.app/?ref=YOUR_CODE" readonly>
+      <button class="ref-copy-btn" onclick="copyRef()">Copy Link</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  COSMO &copy; 2026 &mdash; For entertainment and personal growth purposes.
+  <div class="flinks"><a href="#">Privacy</a><a href="#">Terms</a><a href="mailto:support@cosmo.app">Support</a><a href="#">Refunds</a></div>
+</footer>
+
+<script>
+const d = JSON.parse(localStorage.getItem('cosmo_results') || '{}');
+const purchased = localStorage.getItem('cosmo_purchased') === 'true';
+const upsell1 = localStorage.getItem('cosmo_upsell1') === 'true';
+const downsell = localStorage.getItem('cosmo_downsell') === 'true';
+const member = localStorage.getItem('cosmo_member') === 'true';
+
+// Populate name & email
+const fname = d.fname || 'Explorer';
+document.getElementById('fname-display').textContent = fname;
+document.getElementById('email-display').textContent = d.email || 'your email';
+document.getElementById('ic-name').textContent = fname;
+document.getElementById('ic-sun').textContent = d.sunSign || 'Scorpio';
+document.getElementById('ic-lp').textContent = d.lifePath || '7';
+document.getElementById('ic-mbti').textContent = d.mbti || 'INFJ';
+document.getElementById('ic-hd').textContent = d.hdType || 'Projector';
+document.getElementById('ic-tagline').textContent = `The ${d.mbti || 'INFJ'} ${d.hdType || 'Projector'} \u2022 2026`;
+
+// Set referral link
+document.getElementById('ref-link').value = `https://cosmo.app/?ref=${fname.toUpperCase().replace(/\s/g,'')}${d.lifePath||7}`;
+
+// Build order summary
+let total = 0;
+const container = document.getElementById('order-items');
+if (purchased) {
+  const el = document.createElement('div');
+  el.className = 'order-item';
+  el.innerHTML = '<span class="name">Full Blueprint PDF (40 pages)</span><span class="price">$9</span>';
+  container.appendChild(el);
+  total += 9;
+  document.getElementById('report-delivery').style.display = 'flex';
+}
+if (upsell1) {
+  const el = document.createElement('div');
+  el.className = 'order-item';
+  el.innerHTML = '<span class="name">Compatibility Reading</span><span class="price">$27</span>';
+  container.appendChild(el);
+  total += 27;
+  document.getElementById('compat-delivery').style.display = 'flex';
+}
+if (downsell) {
+  const el = document.createElement('div');
+  el.className = 'order-item';
+  el.innerHTML = '<span class="name">COSMO Identity Card</span><span class="price">$7</span>';
+  container.appendChild(el);
+  total += 7;
+  document.getElementById('card-delivery').style.display = 'flex';
+}
+if (member) {
+  const el = document.createElement('div');
+  el.className = 'order-item';
+  el.innerHTML = '<span class="name">Founding Membership (1 year)</span><span class="price">$47</span>';
+  container.appendChild(el);
+  total += 47;
+  document.getElementById('member-delivery').style.display = 'flex';
+}
+document.getElementById('order-total').textContent = total === 0 ? 'Free' : `$${total}.00`;
+
+function shareTo(platform) {
+  const text = `My COSMO cosmic blueprint: ${d.sunSign||'Scorpio'} Sun \u2022 Life Path ${d.lifePath||7} \u2022 ${d.mbti||'INFJ'} \u2022 ${d.hdType||'Projector'} \u2014 get yours free at cosmo.app`;
+  const urls = {
+    tiktok: 'https://www.tiktok.com',
+    instagram: 'https://www.instagram.com',
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`
+  };
+  window.open(urls[platform], '_blank');
+}
+
+function copyCard() {
+  const text = `My COSMO cosmic blueprint:\n\u2600\ufe0f ${d.sunSign||'Scorpio'} Sun\n\u221e Life Path ${d.lifePath||7}\n\u25c6 ${d.mbti||'INFJ'}\n\u2736 ${d.hdType||'Projector'}\n\nGet yours free: cosmo.app`;
+  navigator.clipboard.writeText(text).then(() => alert('Copied! Paste it anywhere.'));
+}
+
+function copyRef() {
+  navigator.clipboard.writeText(document.getElementById('ref-link').value).then(() => alert('Referral link copied!'));
+}
+</script>
+</body>
+</html>
