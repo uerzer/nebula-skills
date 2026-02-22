@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — Special One-Time Offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+nav{display:flex;justify-content:center;padding:18px;border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.logo em{color:#fff;font-style:normal}
+
+.urgency{background:linear-gradient(90deg,#6b0000,#a00,#6b0000);text-align:center;padding:12px 20px;font-size:14px;font-weight:600}
+.urgency span{color:#ffd700;font-size:18px;font-weight:900}
+
+.page{max-width:680px;margin:0 auto;padding:60px 20px 80px;text-align:center}
+.step-badge{display:inline-block;background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:2px;padding:5px 14px;border-radius:20px;margin-bottom:24px;text-transform:uppercase}
+h1{font-family:'Playfair Display',serif;font-size:clamp(28px,4vw,46px);line-height:1.15;margin-bottom:16px}
+h1 em{font-style:italic;color:var(--gold)}
+.sub{color:var(--muted);font-size:16px;line-height:1.65;max-width:540px;margin:0 auto 44px}
+
+.offer-card{background:var(--card);border:2px solid var(--gold);border-radius:20px;padding:44px;margin-bottom:32px;position:relative;overflow:hidden;text-align:left}
+.offer-card::after{content:'UPGRADE';position:absolute;top:20px;right:-30px;background:var(--gold);color:#000;font-size:10px;font-weight:800;letter-spacing:1px;padding:5px 44px;transform:rotate(45deg)}
+
+.offer-intro{font-size:15px;line-height:1.7;margin-bottom:28px;color:var(--text)}
+.offer-intro strong{color:var(--gold)}
+
+.what-is{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);border-radius:12px;padding:20px;margin-bottom:28px}
+.what-is h3{font-size:14px;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.feat-list{display:flex;flex-direction:column;gap:12px}
+.feat{display:flex;align-items:flex-start;gap:12px;font-size:14px;line-height:1.5}
+.feat-check{color:#2ecc71;font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px}
+.feat-text strong{display:block;font-weight:700;margin-bottom:2px}
+.feat-text span{color:var(--muted);font-size:12px}
+
+.price-section{text-align:center;margin-bottom:28px}
+.was{font-size:16px;color:var(--muted);text-decoration:line-through;margin-bottom:4px}
+.now{font-size:60px;font-weight:900;color:var(--gold);line-height:1}
+.now-sub{font-size:13px;color:var(--muted);margin-top:4px}
+.savings{display:inline-block;background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.25);color:#2ecc71;font-size:13px;font-weight:700;padding:4px 14px;border-radius:20px;margin-top:8px}
+
+.cta{width:100%;padding:20px;background:linear-gradient(135deg,#c9a84c,#e8c060);border:none;border-radius:14px;color:#000;font-size:18px;font-weight:800;cursor:pointer;transition:all .2s;margin-bottom:14px;letter-spacing:.3px}
+.cta:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(201,168,76,.5)}
+.skip{font-size:13px;color:var(--muted);cursor:pointer;background:none;border:none;text-decoration:underline;display:block;margin:0 auto}
+.skip:hover{color:var(--text)}
+
+.guarantee{display:flex;align-items:flex-start;gap:12px;background:rgba(46,204,113,.05);border:1px solid rgba(46,204,113,.15);border-radius:12px;padding:16px;margin-top:24px;font-size:13px;line-height:1.55;color:var(--text)}
+.g-icon{font-size:22px;flex-shrink:0}
+
+/* Testimonial */
+.testi{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px;margin-bottom:32px;text-align:left}
+.stars{color:var(--gold);font-size:14px;margin-bottom:12px}
+.testi p{font-size:15px;line-height:1.7;font-style:italic;margin-bottom:16px}
+.tauthor{display:flex;align-items:center;gap:10px}
+.tavatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#9b59b6,#3498db);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff}
+.tname{font-size:13px;font-weight:600}
+.tdetail{font-size:11px;color:var(--muted)}
+
+footer{padding:36px 20px;border-top:1px solid var(--border);text-align:center;font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="urgency">This offer disappears in <span id="tmr">14:59</span> — it will not appear again</div>
+<nav><div class="logo">COS<em>MO</em></div></nav>
+
+<div class="page">
+  <div class="step-badge">&#9889; One-Time Upgrade Offer</div>
+  <h1>Your Blueprint Reveals <em>Who You Are</em> —<br>But Who Are You <em>With Someone Else?</em></h1>
+  <p class="sub">The Compatibility Reading applies your full cosmic profile to your relationships — romantic, family, or work — and shows you exactly why you click, clash, and what to do about it.</p>
+
+  <div class="testi">
+    <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <p>"I did mine and my partner's compatibility reading and it was like someone had been watching us for years. It explained the exact argument we have every month and why neither of us can back down from it. We finally understood each other."</p>
+    <div class="tauthor"><div class="tavatar">J</div><div><div class="tname">Jamie L.</div><div class="tdetail">Virgo &bull; Life Path 3 &bull; ENFJ &bull; Generator</div></div></div>
+  </div>
+
+  <div class="offer-card">
+    <div class="offer-intro">
+      Your blueprint shows you who you are. But relationships aren't just about you — they're about the <strong>energetic collision</strong> between two complete cosmic profiles. That's what this reading covers.
+    </div>
+
+    <div class="what-is">
+      <h3>What's Included in the Compatibility Reading</h3>
+      <div class="feat-list">
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>Full Synastry Cross-Read</strong><span>Your sun, moon, Venus, and Mars compared against any partner's chart</span></div></div>
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>Life Path Compatibility Score</strong><span>Which numbers harmonize, which create friction, and how to bridge the gap</span></div></div>
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>Type Dynamics Analysis</strong><span>How your MBTI type interacts with all 16 other types — your best and most challenging matches</span></div></div>
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>HD Energy Compatibility</strong><span>Generator + Projector, Manifestor + Reflector — the energetic dynamics that run every relationship</span></div></div>
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>The 3 Patterns That Repeat</strong><span>The unconscious dynamic you keep recreating across different relationships</span></div></div>
+        <div class="feat"><div class="feat-check">&#10003;</div><div class="feat-text"><strong>Your Ideal Partner Profile</strong><span>The exact cosmic signature of your highest-compatibility match, across all 4 systems</span></div></div>
+      </div>
+    </div>
+
+    <div class="price-section">
+      <div class="was">Normal price: $97</div>
+      <div class="now">$27</div>
+      <div class="now-sub">One-time. Added to your order instantly.</div>
+      <div class="savings">You save $70 today only</div>
+    </div>
+
+    <button class="cta" onclick="purchase()">Yes — Add the Compatibility Reading for $27 &rarr;</button>
+    <button class="skip" onclick="skip()">No thanks, I don't need relationship insights</button>
+
+    <div class="guarantee">
+      <div class="g-icon">&#128737;&#65039;</div>
+      <div>30-day money-back guarantee on everything. If the compatibility reading doesn't resonate, email us and we refund you immediately. No hoops, no questions.</div>
+    </div>
+  </div>
+</div>
+
+<footer>COSMO &copy; 2026 &mdash; For entertainment and personal growth purposes.</footer>
+
+<script>
+let t=14*60+59;
+const el=document.getElementById('tmr');
+setInterval(()=>{t--;if(t<0)t=0;el.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')},1000);
+function purchase(){localStorage.setItem('cosmo_upsell1','true');window.location.href='upsell2.html';}
+function skip(){window.location.href='downsell.html';}
+</script>
+</body>
+</html>
