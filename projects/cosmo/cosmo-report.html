@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — Your Complete Blueprint Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+
+/* PRINT STYLES */
+@media print{
+  body{background:#fff;color:#111}
+  .no-print{display:none!important}
+  .page-break{page-break-before:always}
+  :root{--dark:#fff;--card:#f8f8f8;--border:#ddd;--text:#111;--muted:#666;--gold:#a07c2a}
+}
+
+/* REPORT HEADER */
+.report-header{background:linear-gradient(135deg,#0a0a18,#12122a);border-bottom:3px solid var(--gold);padding:60px 40px;text-align:center;position:relative;overflow:hidden}
+.report-header::before{content:'COSMO';position:absolute;font-size:200px;font-weight:900;color:rgba(201,168,76,.03);left:50%;top:50%;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:10px}
+.rh-label{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.rh-name{font-family:'Playfair Display',serif;font-size:48px;color:var(--gold);margin-bottom:8px}
+.rh-sub{font-size:16px;color:var(--muted);margin-bottom:32px}
+.rh-types{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.rh-type{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px 20px;text-align:center;min-width:120px}
+.rh-type .rt-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.rh-type .rt-val{font-size:22px;font-weight:900;color:#fff}
+.rh-type .rt-sub{font-size:11px;color:var(--muted);margin-top:3px}
+
+/* PRINT BUTTON */
+.print-bar{background:rgba(201,168,76,.08);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.print-bar p{font-size:13px;color:var(--muted)}
+.print-btn{padding:10px 24px;background:var(--gold);border:none;border-radius:8px;color:#000;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+.print-btn:hover{opacity:.9}
+
+/* REPORT BODY */
+.report-body{max-width:860px;margin:0 auto;padding:60px 40px}
+@media(max-width:600px){.report-body{padding:40px 20px}}
+
+/* SECTION */
+.section{margin-bottom:60px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:32px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.section-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.si-gold{background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2)}
+.si-purple{background:rgba(155,89,182,.12);border:1px solid rgba(155,89,182,.2)}
+.si-blue{background:rgba(52,152,219,.12);border:1px solid rgba(52,152,219,.2)}
+.si-green{background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.2)}
+.si-red{background:rgba(231,76,60,.12);border:1px solid rgba(231,76,60,.2)}
+.si-pink{background:rgba(255,107,139,.12);border:1px solid rgba(255,107,139,.2)}
+.section-header-text h2{font-family:'Playfair Display',serif;font-size:26px;margin-bottom:4px}
+.section-header-text .sh-tag{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+/* CONTENT BLOCKS */
+.content-block{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:20px}
+.content-block h3{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--gold)}
+.content-block p{font-size:15px;line-height:1.8;color:var(--text);margin-bottom:12px}
+.content-block p:last-child{margin-bottom:0}
+.content-block strong{color:var(--gold)}
+.content-block em{color:#c39bd3;font-style:italic}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:580px){.two-col{grid-template-columns:1fr}}
+
+.highlight-box{background:rgba(201,168,76,.05);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:18px 20px;margin:16px 0}
+.highlight-box p{font-size:14px;line-height:1.7;font-style:italic;color:var(--text)}
+
+.trait-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+.trait-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:16px;text-align:center}
+.trait-card .tc-icon{font-size:24px;margin-bottom:8px}
+.trait-card .tc-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.trait-card .tc-val{font-size:15px;font-weight:700;color:#fff}
+
+.spectrum-bar{margin:16px 0}
+.spectrum-bar .sb-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.spectrum-bar .sb-track{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.spectrum-bar .sb-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold),#e8c060)}
+
+.list-block{display:flex;flex-direction:column;gap:10px}
+.list-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5}
+.list-item::before{content:'›';color:var(--gold);font-weight:700;font-size:16px;flex-shrink:0;margin-top:1px}
+
+/* YEAR FORECAST TABLE */
+.forecast-table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+.forecast-table th{padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);color:var(--muted);font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.forecast-table td{padding:12px 14px;border-bottom:1px solid rgba(30,30,53,.6);vertical-align:top;line-height:1.5}
+.forecast-table tr:last-child td{border-bottom:none}
+.forecast-table td:first-child{color:var(--gold);font-weight:700;white-space:nowrap}
+.forecast-table td:nth-child(2){color:#3498db;font-weight:600}
+
+/* COMPATIBILITY MATRIX */
+.compat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px}
+.compat-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:16px}
+.compat-card h4{font-size:13px;font-weight:700;margin-bottom:8px}
+.compat-score{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.compat-score .score-val{font-size:22px;font-weight:900;color:var(--gold)}
+.compat-score .score-bar{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.compat-score .score-fill{height:100%;border-radius:3px;background:var(--gold)}
+.compat-card p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* CLOSING */
+.closing{text-align:center;padding:60px 40px;border-top:1px solid var(--border);background:linear-gradient(135deg,rgba(201,168,76,.04),rgba(155,89,182,.04))}
+.closing h2{font-family:'Playfair Display',serif;font-size:32px;margin-bottom:16px}
+.closing p{color:var(--muted);font-size:15px;max-width:500px;margin:0 auto 28px;line-height:1.6}
+.closing-btn{display:inline-block;padding:16px 48px;background:linear-gradient(135deg,var(--gold),#e8c060);border-radius:50px;color:#000;font-size:16px;font-weight:800;text-decoration:none;border:none;cursor:pointer}
+
+footer{padding:40px;text-align:center;font-size:12px;color:var(--muted);border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<!-- REPORT HEADER -->
+<div class="report-header">
+  <div class="rh-label">Your Complete Cosmic Blueprint &mdash; COSMO 2026</div>
+  <div class="rh-name" id="rh-name">Your Name</div>
+  <div class="rh-sub" id="rh-dob">Born &mdash; &bull; Prepared 2026</div>
+  <div class="rh-types">
+    <div class="rh-type"><div class="rt-label">&#9728;&#65039; Sun Sign</div><div class="rt-val" id="rh-sun">Scorpio</div><div class="rt-sub">Outer Self</div></div>
+    <div class="rh-type"><div class="rt-label">&#8734;&#65039; Life Path</div><div class="rt-val" id="rh-lp">7</div><div class="rt-sub">Soul Mission</div></div>
+    <div class="rh-type"><div class="rt-label">&#9670;&#65039; Type</div><div class="rt-val" id="rh-mbti">INFJ</div><div class="rt-sub">Cognitive Style</div></div>
+    <div class="rh-type"><div class="rt-label">&#10022;&#65039; HD Type</div><div class="rt-val" id="rh-hd">Projector</div><div class="rt-sub">Energy Design</div></div>
+  </div>
+</div>
+
+<!-- PRINT BAR -->
+<div class="print-bar no-print">
+  <p>This is your personalized COSMO Blueprint. Save or print it for permanent reference.</p>
+  <button class="print-btn" onclick="window.print()">&#128438; Save as PDF / Print</button>
+</div>
+
+<!-- REPORT BODY -->
+<div class="report-body">
+
+  <!-- SECTION 1: CORE IDENTITY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-icon si-gold">&#9670;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 1: Core Identity Matrix</h2>
+        <div class="sh-tag">All 4 Systems Cross-Referenced</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>The Unified Picture</h3>
+      <p>When we cross-reference all four systems — your astrology chart, numerology profile, personality type, and Human Design — certain themes emerge consistently. These repeated signals are your core truth: the things that are undeniably, unchangeably you, regardless of who raised you or what you've been through.</p>
+      <p id="core-identity-text">Your profile reveals a person of profound depth who operates at an intensity most people around you have never fully witnessed. You carry a rich inner world — one that processes everything through multiple layers of meaning, pattern, and intuition. This isn't overcomplication; it's your native intelligence working as designed.</p>
+      <div class="highlight-box">
+        <p id="core-highlight">"The thing all four systems agree on: you are built for depth, not breadth. The version of you that tries to be all things to all people is the exhausted version. The version that commits fully to your specific gift is the one that changes rooms."</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Your Dominant Traits</h3>
+        <div class="trait-grid">
+          <div class="trait-card"><div class="tc-icon">&#128273;</div><div class="tc-label">Depth</div><div class="tc-val">Core trait</div></div>
+          <div class="trait-card"><div class="tc-icon">&#128161;</div><div class="tc-label">Intuition</div><div class="tc-val">Primary mode</div></div>
+          <div class="trait-card"><div class="tc-icon">&#127981;</div><div class="tc-label">Focus</div><div class="tc-val">High capacity</div></div>
+          <div class="trait-card"><div class="tc-icon">&#128218;</div><div class="tc-label">Wisdom</div><div class="tc-val">Natural gift</div></div>
+        </div>
+      </div>
+      <div class="content-block">
+        <h3>Cognitive Style Spectrums</h3>
+        <div class="spectrum-bar"><div class="sb-label"><span>Introversion</span><span>Extraversion</span></div><div class="sb-track"><div class="sb-fill" id="ei-bar" style="width:75%"></div></div></div>
+        <div class="spectrum-bar"><div class="sb-label"><span>Intuition</span><span>Sensing</span></div><div class="sb-track"><div class="sb-fill" id="ns-bar" style="width:82%"></div></div></div>
+        <div class="spectrum-bar"><div class="sb-label"><span>Feeling</span><span>Thinking</span></div><div class="sb-track"><div class="sb-fill" id="tf-bar" style="width:60%"></div></div></div>
+        <div class="spectrum-bar"><div class="sb-label"><span>Judging</span><span>Perceiving</span></div><div class="sb-track"><div class="sb-fill" id="jp-bar" style="width:65%"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: ASTROLOGY -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-gold">&#9728;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 2: Your Astrological Signature</h2>
+        <div class="sh-tag">Sun, Moon, Venus, Mars, Saturn</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3 id="sun-section-title">Sun in Scorpio — Your Core Identity</h3>
+      <p id="sun-text">Scorpio is the sign of transformation, depth, and the unseen. As a Scorpio Sun, you are fundamentally drawn to what lies beneath the surface — the real story behind the presented story, the actual feeling behind the stated feeling. You have an almost supernatural ability to detect inauthenticity, and you are allergic to superficiality in all its forms.</p>
+      <p>This depth is your greatest gift and your greatest burden. You feel everything fully — love, loss, betrayal, joy — at an intensity that most people around you simply do not experience. This is not a flaw. This is your design. The question isn't how to feel less — it's how to metabolize what you feel in ways that don't consume you.</p>
+      <div class="highlight-box"><p>Scorpio Suns are natural investigators of human nature. You belong in work and relationships that allow you to go deep, not wide. Every time you've tried to be more "surface-level" to fit in, it has cost you energy and authenticity.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Venus — How You Love</h3>
+        <p id="venus-text">Your Venus placement reveals that you love with total commitment or not at all. Half-measures in love don't register for you. You need complete emotional transparency and tend to test partners — sometimes unconsciously — to see if they can handle your depth.</p>
+      </div>
+      <div class="content-block">
+        <h3>Mars — How You Act</h3>
+        <p id="mars-text">Your Mars drives you through sustained, strategic effort rather than explosive bursts. You are a long-game player by nature. You can outlast almost anyone in a sustained effort when you care about the outcome — but you disengage completely when the goal loses meaning.</p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Saturn — Your Life Lesson</h3>
+      <p id="saturn-text">Saturn represents your karmic curriculum — the area of life where you face the most resistance and ultimately build your greatest authority. The areas where you've struggled most have been preparing you to become an authority in exactly that domain. This is not punishment. It's training.</p>
+      <div class="highlight-box"><p>People with significant Saturn placements often feel "late" to their own lives — but Saturn rewards patience. The mastery you're building now becomes your defining contribution after age 30.</p></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3: NUMEROLOGY -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-purple">&#8734;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 3: Your Numerology Profile</h2>
+        <div class="sh-tag">Life Path, Expression, Soul Urge, Personal Year</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3 id="lp-title">Life Path 7 — The Seeker</h3>
+      <p id="lp-text">Life Path 7 is the number of the truth-seeker. You came into this life with an insatiable need to understand — not just events, but the underlying mechanics of reality. You are drawn to philosophy, psychology, mysticism, science, or any field that promises deeper answers. Surface-level explanations feel like an insult to your intelligence.</p>
+      <p>You are at your best when you have time and space to think. Forced collaboration, open offices, and constant social demands drain you at a cellular level. This is not antisocial behavior — it's your cognitive architecture requiring the conditions it needs to function at its highest level.</p>
+      <div class="highlight-box"><p>Life Path 7s often feel like outsiders — not because they don't belong, but because they're operating on a frequency that most environments haven't been calibrated for. The gift of the 7 is that when you find your people and your purpose, the depth of connection and contribution is unlike anything else.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Expression Number</h3>
+        <p id="expr-text">Your Expression number reveals the natural talents and abilities you carry into this lifetime — the things you do effortlessly that others find remarkable. These are your built-in gifts, not achievements you had to earn.</p>
+        <div class="list-block" style="margin-top:12px">
+          <div class="list-item">Synthesizing complex information</div>
+          <div class="list-item">Seeing patterns across unrelated fields</div>
+          <div class="list-item">Deep one-on-one communication</div>
+          <div class="list-item">Strategic, long-term thinking</div>
+        </div>
+      </div>
+      <div class="content-block">
+        <h3>Soul Urge Number</h3>
+        <p id="soul-text">Your Soul Urge reveals what your heart actually wants — beneath conditioning, beneath what you think you should want, beneath the persona. This is the quiet voice that never fully goes away.</p>
+        <div class="list-block" style="margin-top:12px">
+          <div class="list-item">Genuine understanding and being understood</div>
+          <div class="list-item">Work that matters beyond the transaction</div>
+          <div class="list-item">Relationships of real depth and honesty</div>
+          <div class="list-item">Time alone that feels chosen, not forced</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>2026 Personal Year Forecast</h3>
+      <p id="py-text">Based on your birth date, 2026 carries specific numerological energy that shapes the themes, opportunities, and challenges of the year. Understanding your Personal Year helps you work with the current rather than against it.</p>
+      <table class="forecast-table">
+        <tr><th>Quarter</th><th>Theme</th><th>Guidance</th></tr>
+        <tr><td>Jan–Mar</td><td>Foundation</td><td>Clear the old. Don't start new projects yet. This is prep time.</td></tr>
+        <tr><td>Apr–Jun</td><td>Momentum</td><td>The first real opportunities of the year arrive. Move on them.</td></tr>
+        <tr><td>Jul–Sep</td><td>Peak</td><td>Your highest-energy quarter. Schedule your most important work here.</td></tr>
+        <tr><td>Oct–Dec</td><td>Harvest</td><td>Reap what was planted. Review, refine, and consolidate gains.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PERSONALITY -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-blue">&#9670;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 4: Personality Type Deep Dive</h2>
+        <div class="sh-tag">Cognitive Functions, Strengths, Shadow</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3 id="mbti-title">INFJ — The Counselor</h3>
+      <p id="mbti-text">INFJs are the rarest personality type — making up less than 2% of the population. This rarity is not a coincidence. The INFJ cognitive stack (Ni-Fe-Ti-Se) creates a mind that operates in a way most people literally do not have access to. Your dominant function, Introverted Intuition (Ni), allows you to synthesize vast amounts of information subconsciously and deliver insights that feel almost psychic to others.</p>
+      <p>The Fe (Extraverted Feeling) that sits directly beneath your intuition means you are acutely aware of the emotional climate of every room you enter. You absorb the feelings of others whether you want to or not. This is both your greatest social gift and your primary source of energy depletion.</p>
+      <div class="highlight-box"><p>The INFJ paradox: you understand people deeply and help them profoundly, but you need significant solitude to recover from the cost of that understanding. Any environment that doesn't honor this will systematically drain you toward burnout.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Your Cognitive Stack</h3>
+        <div class="list-block">
+          <div class="list-item"><strong>Ni (dominant)</strong> — Pattern recognition, future-casting, deep insight</div>
+          <div class="list-item"><strong>Fe (auxiliary)</strong> — Emotional attunement, social harmony, empathy</div>
+          <div class="list-item"><strong>Ti (tertiary)</strong> — Internal logical framework, analysis</div>
+          <div class="list-item"><strong>Se (inferior)</strong> — Present-moment sensory awareness (your weakness)</div>
+        </div>
+      </div>
+      <div class="content-block">
+        <h3>Your Shadow Functions</h3>
+        <div class="list-block">
+          <div class="list-item"><strong>Ne (5th)</strong> — When stressed: scattered, overwhelmed by possibilities</div>
+          <div class="list-item"><strong>Fi (6th)</strong> — When triggered: sudden rigid values, emotional withdrawal</div>
+          <div class="list-item"><strong>Te (7th)</strong> — When reactive: blunt, critical, demanding efficiency</div>
+          <div class="list-item"><strong>Si (8th)</strong> — In crisis: retreating to rigid past patterns for safety</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Ideal Career Environments for Your Type</h3>
+      <p>INFJs perform best in environments that offer autonomy, meaningful work, and some degree of creative latitude. The following fields consistently produce high fulfillment for your cognitive profile:</p>
+      <div class="trait-grid">
+        <div class="trait-card"><div class="tc-icon">&#128214;</div><div class="tc-label">Writing &amp; Content</div><div class="tc-val">High fit</div></div>
+        <div class="trait-card"><div class="tc-icon">&#128172;</div><div class="tc-label">Counseling</div><div class="tc-val">High fit</div></div>
+        <div class="trait-card"><div class="tc-icon">&#127981;</div><div class="tc-label">Strategy</div><div class="tc-val">High fit</div></div>
+        <div class="trait-card"><div class="tc-icon">&#127891;</div><div class="tc-label">Teaching</div><div class="tc-val">High fit</div></div>
+        <div class="trait-card"><div class="tc-icon">&#128300;</div><div class="tc-label">Research</div><div class="tc-val">High fit</div></div>
+        <div class="trait-card"><div class="tc-icon">&#9881;&#65039;</div><div class="tc-label">Open offices</div><div class="tc-val">Low fit</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 5: HUMAN DESIGN -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-green">&#10022;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 5: Human Design Blueprint</h2>
+        <div class="sh-tag">Type, Strategy, Authority, Profile, Centers</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3 id="hd-title">Projector — The Guide</h3>
+      <p id="hd-text">Projectors make up approximately 20% of the population. You are not designed to generate energy the way Generators and Manifesting Generators do — and this is the key insight that changes everything. Trying to work like a Generator will burn you out every time. You were designed differently on purpose.</p>
+      <p>Your gift is your perception. You can see the most efficient path in almost any system — a business, a relationship, a team, a process. You are a natural guide. But your guidance only lands when it's been invited. Uninvited projector advice — no matter how accurate — is consistently rejected. The invitation is not optional; it's the mechanism.</p>
+      <div class="highlight-box"><p>The Projector's success path: become so good at what you do that the right invitations come to you. Don't push into rooms. Prepare yourself to be the obvious choice, then wait to be called. When the invitation arrives, give everything.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>Your Strategy</h3>
+        <p style="font-size:15px;line-height:1.7"><strong style="color:#2ecc71">Wait for the Invitation.</strong> For major life decisions — jobs, relationships, moves — wait for a clear invitation before committing. Responding to an invitation aligns your energy correctly. Forcing entry creates resistance.</p>
+      </div>
+      <div class="content-block">
+        <h3>Your Authority</h3>
+        <p style="font-size:15px;line-height:1.7"><strong style="color:#2ecc71">Emotional/Splenic.</strong> You don't have access to instant clarity. You need to feel decisions over time, or trust the spontaneous gut hit in the moment. Never decide in emotional reaction — positive or negative.</p>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Defined vs. Undefined Centers</h3>
+      <p style="margin-bottom:16px">In Human Design, defined centers are consistent and reliable — they are yours. Undefined centers are where you take in and amplify the energy of others. Neither is better; they function differently.</p>
+      <div class="two-col">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:#2ecc71;margin-bottom:10px">DEFINED (Consistent)</p>
+          <div class="list-block">
+            <div class="list-item">Head Center — consistent mental pressure to understand</div>
+            <div class="list-item">Ajna Center — consistent conceptual processing</div>
+            <div class="list-item">Throat Center — consistent communication drive</div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--muted);margin-bottom:10px">UNDEFINED (Conditioned)</p>
+          <div class="list-block">
+            <div class="list-item">Sacral Center — you amplify others' energy, don't generate your own</div>
+            <div class="list-item">Root Center — susceptible to deadline and pressure conditioning</div>
+            <div class="list-item">Solar Plexus — absorbs emotional waves from others</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 6: LOVE & RELATIONSHIPS -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-pink">&#10084;&#65039;</div>
+      <div class="section-header-text">
+        <h2>Section 6: Love Archetype &amp; Relationship Patterns</h2>
+        <div class="sh-tag">Venus, Soul Urge, Type Dynamics, HD Compatibility</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Your Love Archetype: The Deep Connector</h3>
+      <p>All four systems converge on the same relationship truth for your profile: you are capable of love at a depth that most people have never experienced and most partners have never been able to fully receive. This creates a recurring pattern — you give profoundly, you're met partially, and you carry a quiet grief about never being fully known.</p>
+      <p>This is not about finding the "right person" in a luck-based sense. It's about finding someone with the capacity and willingness to match your depth — and that is a specific, findable quality once you know what you're looking for.</p>
+      <div class="highlight-box"><p>The pattern to break: choosing partners who are emotionally unavailable and then trying to unlock them. The unlockable person feels exciting because the work of trying to reach them simulates the depth of connection you crave. It isn't the same thing.</p></div>
+    </div>
+
+    <div class="two-col">
+      <div class="content-block">
+        <h3>What You Need in a Partner</h3>
+        <div class="list-block">
+          <div class="list-item">Emotional availability — not just interest, but capacity</div>
+          <div class="list-item">Intellectual curiosity — you cannot sustain attraction without it</div>
+          <div class="list-item">Respect for your solitude and inner world</div>
+          <div class="list-item">Consistency over intensity — you've been burned by intensity before</div>
+          <div class="list-item">Their own strong sense of self — you don't want a project</div>
+        </div>
+      </div>
+      <div class="content-block">
+        <h3>HD Compatibility by Type</h3>
+        <div class="compat-grid" style="grid-template-columns:1fr;gap:10px">
+          <div class="compat-card"><h4>Generator + Projector</h4><div class="compat-score"><span class="score-val">92%</span><div class="score-bar"><div class="score-fill" style="width:92%"></div></div></div><p>Classic high-compatibility pairing. Generator's energy + Projector's guidance.</p></div>
+          <div class="compat-card"><h4>Manifestor + Projector</h4><div class="compat-score"><span class="score-val">74%</span><div class="score-bar"><div class="score-fill" style="width:74%"></div></div></div><p>High synergy but requires the Manifestor to genuinely value guidance.</p></div>
+          <div class="compat-card"><h4>Projector + Projector</h4><div class="compat-score"><span class="score-val">65%</span><div class="score-bar"><div class="score-fill" style="width:65%"></div></div></div><p>Deep understanding but shared energy depletion — requires careful management.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 7: SHADOW & GROWTH -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-red">&#128165;</div>
+      <div class="section-header-text">
+        <h2>Section 7: Shadow Pattern &amp; Growth Edge</h2>
+        <div class="sh-tag">The unconscious pattern running your biggest decisions</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Your Primary Shadow: The Invisible Burden</h3>
+      <p>Every system in your profile points to the same shadow pattern: you carry things silently that should be shared. You absorb the pain, problems, and emotional weight of people around you — often without being asked — and you rarely ask for the same in return. This creates a slow accumulation of invisible debt that eventually surfaces as withdrawal, resentment, or burnout.</p>
+      <p>The root: somewhere early in life you learned that your needs were too much, or that being needed was the safest way to be loved, or that showing vulnerability invited more to carry rather than relief. The specific memory varies, but the pattern is the same.</p>
+      <div class="highlight-box"><p>The growth edge isn't learning to need less — it's learning to ask. Not hinting. Not withdrawing until someone notices. Actually asking for what you need, directly, and letting people show up for you the way you show up for them.</p></div>
+    </div>
+
+    <div class="content-block">
+      <h3>The 3 Situations That Trigger Your Shadow</h3>
+      <div class="list-block">
+        <div class="list-item"><strong>Being misunderstood without the chance to explain</strong> — triggers withdrawal and the quiet conviction that connection is ultimately impossible</div>
+        <div class="list-item"><strong>Feeling invisible in a group</strong> — activates the INFJ "door slam" and Projector bitterness simultaneously</div>
+        <div class="list-item"><strong>Giving significantly and receiving nothing</strong> — creates a specific kind of silent grief that doesn't announce itself until it's become resentment</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>Your Practical Growth Practices</h3>
+      <div class="two-col">
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px">DAILY</p>
+          <div class="list-block">
+            <div class="list-item">10 minutes of complete solitude before engaging with others</div>
+            <div class="list-item">One direct ask per day — practice making needs visible</div>
+            <div class="list-item">Notice when you're absorbing others' energy vs. generating your own</div>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:13px;font-weight:700;color:var(--gold);margin-bottom:10px">WEEKLY</p>
+          <div class="list-block">
+            <div class="list-item">One full day of low social obligation — protect this fiercely</div>
+            <div class="list-item">Journal the week's emotional weight — what's yours, what's absorbed</div>
+            <div class="list-item">One conversation where you share something real without managing how it lands</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 8: 2026 FORECAST -->
+  <div class="section page-break">
+    <div class="section-header">
+      <div class="section-icon si-gold">&#127775;</div>
+      <div class="section-header-text">
+        <h2>Section 8: Your 2026 Cosmic Forecast</h2>
+        <div class="sh-tag">Transits + Personal Year + HD Cycle</div>
+      </div>
+    </div>
+
+    <div class="content-block">
+      <h3>The Big Picture: What 2026 Is About For You</h3>
+      <p id="py-overview">2026 is a year of significant transition in your cosmic timeline. The current planetary transits, combined with your Personal Year energy and your HD cycle, all point to a year where what you've been building internally is finally ready to move outward. This is not a year to stay small.</p>
+      <div class="highlight-box"><p>The recurring theme of 2026 for your profile: completion and emergence. Old chapters close not because they failed but because you've outgrown them. New ones open not as escape but as evolution. Trust the endings.</p></div>
+    </div>
+
+    <div class="content-block">
+      <h3>Month-by-Month Energy Map</h3>
+      <table class="forecast-table">
+        <tr><th>Month</th><th>Theme</th><th>Key Focus</th></tr>
+        <tr><td>January</td><td>Reset</td><td>Clear mental and physical space. Don't force momentum yet.</td></tr>
+        <tr><td>February</td><td>Clarity</td><td>What you want becomes clearer. Write it down. Commit to it internally.</td></tr>
+        <tr><td>March</td><td>Initiation</td><td>First real movement. Say yes to the invitation that feels slightly scary.</td></tr>
+        <tr><td>April</td><td>Expansion</td><td>Energy and opportunities increase. Discernment is key — not every door.</td></tr>
+        <tr><td>May</td><td>Depth</td><td>A relationship or project deepens significantly. Give it your full attention.</td></tr>
+        <tr><td>June</td><td>Peak 1</td><td>Your highest clarity month. Major decisions made now have long-term roots.</td></tr>
+        <tr><td>July</td><td>Integration</td><td>Slower energy. Use it to consolidate gains, not to push harder.</td></tr>
+        <tr><td>August</td><td>Visibility</td><td>You are seen differently. Let it happen. Don't deflect the recognition.</td></tr>
+        <tr><td>September</td><td>Peak 2</td><td>Second high-energy window. The most productive 6 weeks of your year.</td></tr>
+        <tr><td>October</td><td>Harvest</td><td>Results of the year's work begin arriving. Receive them fully.</td></tr>
+        <tr><td>November</td><td>Release</td><td>What needs to end, ends. Cooperate with the closure.</td></tr>
+        <tr><td>December</td><td>Preparation</td><td>Quiet reflection. Set intentions for the cycle ahead. Rest without guilt.</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /report-body -->
+
+<!-- CLOSING -->
+<div class="closing">
+  <h2>Your Blueprint Is a Living Document</h2>
+  <p>The systems that created this report don't change — but your understanding of them deepens over time. Return to this report at key moments in your life. The sections that resonate most will shift as you grow.</p>
+  <a href="index.html" class="closing-btn">Generate a Partner's Blueprint &rarr;</a>
+</div>
+
+<footer>
+  COSMO &copy; 2026 &mdash; Prepared personally for <span id="footer-name">you</span>. For entertainment and personal growth purposes. Not a substitute for professional advice.
+</footer>
+
+<script>
+const d = JSON.parse(localStorage.getItem('cosmo_results') || '{}');
+const name = d.fname || 'Explorer';
+const sun = d.sunSign || 'Scorpio';
+const lp = d.lifePath || 7;
+const mbti = d.mbti || 'INFJ';
+const hd = d.hdType || 'Projector';
+
+document.getElementById('rh-name').textContent = name + "'s Cosmic Blueprint";
+document.getElementById('rh-sun').textContent = sun;
+document.getElementById('rh-lp').textContent = lp;
+document.getElementById('rh-mbti').textContent = mbti;
+document.getElementById('rh-hd').textContent = hd;
+document.getElementById('footer-name').textContent = name;
+
+const month = parseInt(d.month)||6, day = parseInt(d.day)||15, year = parseInt(d.year)||1990;
+document.getElementById('rh-dob').textContent = `Born ${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month-1]} ${day}, ${year} \u2022 Prepared 2026`;
+
+document.getElementById('sun-section-title').textContent = `Sun in ${sun} \u2014 Your Core Identity`;
+document.getElementById('mbti-title').textContent = `${mbti} \u2014 Your Cognitive Blueprint`;
+document.getElementById('hd-title').textContent = `${hd} \u2014 Your Energy Design`;
+document.getElementById('lp-title').textContent = `Life Path ${lp} \u2014 Your Soul Mission`;
+
+// Spectrum bars based on MBTI
+const bars = {
+  'INFJ':{ei:75,ns:82,tf:60,jp:65},'INTJ':{ei:80,ns:85,tf:35,jp:70},
+  'ENFJ':{ei:35,ns:75,tf:65,jp:65},'ENFP':{ei:40,ns:80,tf:62,jp:35},
+  'INFP':{ei:72,ns:78,tf:70,jp:38},'INTP':{ei:82,ns:80,tf:30,jp:40},
+  'ENTJ':{ei:30,ns:70,tf:32,jp:72},'ENTP':{ei:35,ns:78,tf:35,jp:40},
+};
+const bar = bars[mbti] || bars['INFJ'];
+document.getElementById('ei-bar').style.width = bar.ei+'%';
+document.getElementById('ns-bar').style.width = bar.ns+'%';
+document.getElementById('tf-bar').style.width = bar.tf+'%';
+document.getElementById('jp-bar').style.width = bar.jp+'%';
+
+// Personal year
+let py = (month + day + 2 + 0 + 2 + 6);
+while(py > 9) py = py.toString().split('').map(Number).reduce((a,b)=>a+b,0);
+const pyThemes = {1:'new beginnings — plant seeds',2:'partnerships — collaborate deeply',3:'creativity — express and expand',4:'foundations — build systematically',5:'change — embrace the pivot',6:'responsibility — nurture what matters',7:'reflection — go inward',8:'achievement — step into power',9:'completion — release and close chapters'};
+document.getElementById('py-overview').innerHTML = `2026 is a <strong>Personal Year ${py}</strong> for you — a year of <strong>${pyThemes[py]||'growth and transition'}</strong>. Combined with your HD cycle and the major transits affecting your chart, this is one of the most significant years in your current 9-year cycle. The work you do this year sets the foundation for the next chapter of your life.`;
+</script>
+</body>
+</html>
