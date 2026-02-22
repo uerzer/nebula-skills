@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — TikTok Script Vault</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text)}
+.top{background:var(--card);border-bottom:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.top h1{font-size:18px;font-weight:700}.top p{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:10px}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 24px 80px}
+.strategy-box{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:32px}
+.strategy-box h2{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px}
+.strategy-box p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:10px}
+.strat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px}
+.strat-pill{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px;text-align:center}
+.strat-pill .sp-val{font-size:20px;font-weight:900;color:var(--gold);margin-bottom:4px}
+.strat-pill .sp-label{font-size:12px;color:var(--muted)}
+.sec-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.script-card{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.sc-header{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.sc-left{display:flex;align-items:flex-start;gap:12px}
+.sc-num{width:32px;height:32px;border-radius:50%;background:var(--gold);color:#000;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.sc-title{font-size:15px;font-weight:700;margin-bottom:3px}
+.sc-meta{font-size:12px;color:var(--muted)}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+.tag-edu{background:rgba(52,152,219,.15);color:#85c1e9}
+.tag-hook{background:rgba(231,76,60,.15);color:#e88}
+.tag-story{background:rgba(155,89,182,.15);color:#c39bd3}
+.tag-value{background:rgba(46,204,113,.15);color:#2ecc71}
+.tag-ugc{background:rgba(201,168,76,.15);color:var(--gold)}
+.tag-trend{background:rgba(230,126,34,.15);color:#f0a050}
+.sc-body{padding:24px}
+.sc-section{margin-bottom:20px}
+.sc-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.hook-text{font-size:18px;font-weight:700;line-height:1.3;color:#fff;background:rgba(201,168,76,.05);border-left:3px solid var(--gold);padding:12px 16px;border-radius:0 8px 8px 0}
+.script-text{font-size:13px;line-height:1.8;color:var(--text);white-space:pre-wrap;background:#080814;border:1px solid var(--border);border-radius:10px;padding:18px}
+.caption-text{font-size:13px;line-height:1.6;color:var(--text);background:#080814;border:1px solid var(--border);border-radius:10px;padding:14px;white-space:pre-wrap}
+.hashtag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ht{font-size:12px;color:#3498db;cursor:pointer}
+.perf-row{display:flex;gap:16px;flex-wrap:wrap;padding:16px 24px;background:rgba(255,255,255,.02);border-top:1px solid var(--border)}
+.perf-item{font-size:12px;color:var(--muted)}
+.perf-item strong{color:var(--text)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div><h1>COSMO — TikTok Script Vault</h1><p>20 video scripts with hooks, full scripts, captions, and hashtags</p></div>
+  <div class="badge">20 Scripts</div>
+</div>
+<div class="wrap">
+
+<div class="strategy-box">
+  <h2>TikTok Content Strategy</h2>
+  <p>Post 1-2x daily. The goal is not virality for its own sake — it's driving link-in-bio clicks to the quiz. Every video ends with the same CTA: "link in bio to get yours free." Rotate between the 6 content categories below to avoid account fatigue and hit different interest signals in the algorithm.</p>
+  <p><strong>Content mix:</strong> 40% educational (astrology/HD/MBTI facts), 30% relatable identity hooks, 20% story/testimonial, 10% trending audio with cosmo angle.</p>
+  <div class="strat-row">
+    <div class="strat-pill"><div class="sp-val">1-2x</div><div class="sp-label">Posts per day</div></div>
+    <div class="strat-pill"><div class="sp-val">0:03</div><div class="sp-label">Hook must land by</div></div>
+    <div class="strat-pill"><div class="sp-val">15-60s</div><div class="sp-label">Ideal video length</div></div>
+    <div class="strat-pill"><div class="sp-val">Bio link</div><div class="sp-label">Only CTA needed</div></div>
+    <div class="strat-pill"><div class="sp-val">30 days</div><div class="sp-label">To first viral window</div></div>
+  </div>
+</div>
+
+<div class="sec-title">Category 1 — Identity Hooks (highest CTR)</div>
+
+<!-- SCRIPT 1 -->
+<div class="script-card">
+  <div class="sc-header">
+    <div class="sc-left">
+      <div class="sc-num">1</div>
+      <div>
+        <div class="sc-title">The 4-System Reveal</div>
+        <div class="sc-meta">Duration: 30-45s &bull; Format: Talking head + text overlay</div>
+        <div class="tags"><div class="tag tag-hook">Hook</div><div class="tag tag-edu">Educational</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sc-body">
+    <div class="sc-section">
+      <div class="sc-label">Hook (first 3 seconds)</div>
+      <div class="hook-text">Nobody told you that your birth data contains four completely different maps of who you are</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Full Script</div>
+      <div class="script-text">Nobody told you that your birth data contains four completely different maps of who you are.
+
+Most people know their sun sign. Some know their MBTI. A few have found Human Design.
+
+But nobody's combining all four.
+
+Your astrology chart shows your cosmic context — your personality, your timing, your life lessons.
+
+Your numerology shows your life path — the mission your soul came here with, and what this specific year holds.
+
+Your personality type shows your cognitive architecture — not just intro or extrovert, but the exact thinking pattern your mind runs on.
+
+And Human Design shows your energy type — how you're literally designed to work, decide, and move through the world.
+
+When you combine all four and look at where they agree?
+
+That's your core truth.
+
+I built something that does exactly this. Link in bio. It's free to start.</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Caption</div>
+      <div class="caption-text">Most people only have 25% of the picture 🌙 4 systems combined = the complete map. Free to generate, link in bio. #astrology #humandesign #mbti #numerology #cosmo</div>
+    </div>
+    <div class="hashtag-row">
+      <span class="ht">#astrology</span><span class="ht">#humandesign</span><span class="ht">#mbti</span><span class="ht">#numerology</span>
+      <span class="ht">#spiritualtiktok</span><span class="ht">#selfknowledge</span><span class="ht">#cosmicblueprint</span>
+    </div>
+  </div>
+  <div class="perf-row">
+    <div class="perf-item">Best time: <strong>7-9pm local</strong></div>
+    <div class="perf-item">CTA placement: <strong>Last 5 seconds + caption</strong></div>
+    <div class="perf-item">Thumbnail text: <strong>"Your birth data has 4 maps"</strong></div>
+  </div>
+</div>
+
+<!-- SCRIPT 2 -->
+<div class="script-card">
+  <div class="sc-header">
+    <div class="sc-left">
+      <div class="sc-num">2</div>
+      <div>
+        <div class="sc-title">The Projector Burnout</div>
+        <div class="sc-meta">Duration: 45-60s &bull; Format: Talking head</div>
+        <div class="tags"><div class="tag tag-hook">Hook</div><div class="tag tag-value">Value</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sc-body">
+    <div class="sc-section">
+      <div class="sc-label">Hook</div>
+      <div class="hook-text">If you burn out faster than everyone around you, it's probably not a willpower problem</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Full Script</div>
+      <div class="script-text">If you burn out faster than everyone around you, it's probably not a willpower problem.
+
+In Human Design, there are 5 energy types. Only one of them — Generators and Manifesting Generators — are designed to sustain high output energy all day long.
+
+That's about 70% of people.
+
+The other 30% — Projectors, Manifestors, and Reflectors — are designed completely differently. 
+
+Projectors specifically are designed to work in focused bursts, guide others, and rest deeply. They're not built for 8-hour workdays. Their energy literally doesn't work that way.
+
+If you're a Projector trying to work like a Generator, you will burn out. Every time. It's not a character flaw. It's a design mismatch.
+
+I used to think I was lazy. Then I found out I was a Projector. Everything made sense immediately.
+
+You can find your Human Design type — along with your astrology profile, numerology, and personality type — all in one place. Link in bio. Free to start.</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Caption</div>
+      <div class="caption-text">Projectors are not lazy. They're designed differently. 🌟 Find your energy type free — link in bio. #humandesign #projector #burnout #energytype #selfcare</div>
+    </div>
+    <div class="hashtag-row">
+      <span class="ht">#humandesign</span><span class="ht">#projector</span><span class="ht">#burnout</span><span class="ht">#energytype</span>
+      <span class="ht">#hdprojector</span><span class="ht">#humandesignprojector</span><span class="ht">#spiritualtiktok</span>
+    </div>
+  </div>
+  <div class="perf-row">
+    <div class="perf-item">Target audience: <strong>HD-aware, burnout/wellness</strong></div>
+    <div class="perf-item">Expected retention: <strong>High (personal pain point)</strong></div>
+  </div>
+</div>
+
+<!-- SCRIPT 3 -->
+<div class="script-card">
+  <div class="sc-header">
+    <div class="sc-left">
+      <div class="sc-num">3</div>
+      <div>
+        <div class="sc-title">The INFJ Door Slam</div>
+        <div class="sc-meta">Duration: 30-45s &bull; Format: Text overlay / Talking head</div>
+        <div class="tags"><div class="tag tag-hook">Hook</div><div class="tag tag-ugc">UGC</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sc-body">
+    <div class="sc-section">
+      <div class="sc-label">Hook</div>
+      <div class="hook-text">The INFJ door slam is real and here's exactly why it happens according to cognitive science</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Full Script</div>
+      <div class="script-text">The INFJ door slam is real and here's why it happens.
+
+INFJs lead with a function called Introverted Intuition — Ni. It's a pattern recognition engine that processes information subconsciously and delivers insights that feel almost psychic.
+
+But right underneath that is Extraverted Feeling — Fe. This function constantly monitors the emotional climate of every relationship. It's how INFJs know what you're feeling before you say it.
+
+When Fe detects a sustained pattern of disrespect, emotional unavailability, or being drained without reciprocity — it doesn't explode. It doesn't argue.
+
+It goes quiet. It withdraws. The door closes.
+
+And once an INFJ's door is closed, it rarely reopens. Not because they're unforgiving — but because the energy cost of continuing already exceeded what they could sustain.
+
+This isn't a personality flaw. It's a cognitive defense mechanism working exactly as designed.
+
+If you want to understand your own cognitive architecture this specifically — link in bio.</div>
+    </div>
+    <div class="sc-section">
+      <div class="sc-label">Caption</div>
+      <div class="caption-text">The door slam explained through cognitive functions, not vibes 🚪 Understand your own mind: link in bio. #infj #infjdoorslam #mbti #cognitivefunctions #personality</div>
+    </div>
+    <div class="hashtag-row">
+      <span class="ht">#infj</span><span class="ht">#infjdoorslam</span><span class="ht">#mbti</span><span class="ht">#cognitivefunctions</span>
+      <span class="ht">#infjproblems</span><span class="ht">#personalitytype</span><span class="ht">#psychologytiktok</span>
+    </div>
+  </div>
+  <div class="perf-row">
+    <div class="perf-item">Audience: <strong>MBTI/INFJ community (massive on TikTok)</strong></div>
+    <div class="perf-item">Viral potential: <strong>Very high — INFJ content consistently outperforms</strong></div>
+  </div>
+</div>
+
+<!-- SCRIPT 4 -->
+<div class="script-card">
+  <div class="sc-header">
+    <div class="sc-left"><div class="sc-num">4</div><div><div class="sc-title">Life Path Number Reveal</div><div class="sc-meta">Duration: 45-60s &bull; Format: List / Educational</div><div class="tags"><div class="tag tag-edu">Educational</div><div class="tag tag-value">Value</div></div></div></div>
+  </div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Your Life Path number tells you more about your purpose than your horoscope ever will — here's how to calculate yours</div></div>
+    <div class="sc-section"><div class="sc-label">Full Script</div>
+    <div class="script-text">Your Life Path number is calculated from your full birth date — month, day, and year — reduced to a single digit.
+
+Let me show you how. Say your birthday is March 15, 1992.
+
+Month: 3
+Day: 1 + 5 = 6
+Year: 1 + 9 + 9 + 2 = 21 → 2 + 1 = 3
+
+Add them: 3 + 6 + 3 = 12 → 1 + 2 = 3. Life Path 3.
+
+Now here's what each number means:
+
+1 — The Leader. Born to initiate and forge new paths.
+2 — The Peacemaker. Born to bridge and harmonize.
+3 — The Creator. Born to express and inspire.
+4 — The Builder. Born to create lasting foundations.
+5 — The Freedom Seeker. Born to experience and adapt.
+6 — The Nurturer. Born to serve and create beauty.
+7 — The Seeker. Born to question and uncover truth.
+8 — The Achiever. Born to master the material world.
+9 — The Humanitarian. Born to serve something larger.
+11 — Master Intuitive. Spiritual calling, high sensitivity.
+22 — Master Builder. Here to shift systems.
+
+Drop your number below. And if you want yours combined with your astrology, personality type, and Human Design — link in bio. Free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Calculate yours and drop it below 👇 Then get your full 4-system blueprint free — link in bio. #numerology #lifepath #lifenumber #spiritualtiktok #numerologytiktok</div></div>
+  </div>
+  <div class="perf-row"><div class="perf-item">Engagement driver: <strong>Comment bait (drop your number)</strong></div><div class="perf-item">Save rate: <strong>Very high — educational reference content</strong></div></div>
+</div>
+
+<!-- SCRIPT 5 -->
+<div class="script-card">
+  <div class="sc-header">
+    <div class="sc-left"><div class="sc-num">5</div><div><div class="sc-title">Human Design Types Explained</div><div class="sc-meta">Duration: 60s &bull; Format: List / Rapid fire</div><div class="tags"><div class="tag tag-edu">Educational</div><div class="tag tag-value">Value</div></div></div></div>
+  </div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Your Human Design type in 10 seconds — which one are you</div></div>
+    <div class="sc-section"><div class="sc-label">Full Script</div>
+    <div class="script-text">There are 5 Human Design types and each one is designed completely differently.
+
+Generator — 37% of people. Designed to respond and commit. Sustainable energy when doing the right work. Frustrated when pushing against resistance. Strategy: wait to respond.
+
+Manifesting Generator — 33%. Multi-passionate, fast-moving, designed to respond and then move. Skips steps that don't serve them. Strategy: respond then inform.
+
+Projector — 20%. Not a generator of energy — a guide of it. Designed to see systems clearly and direct others. Needs to be invited. Burns out trying to work like a Generator. Strategy: wait for the invitation.
+
+Manifestor — 9%. The only true initiator. Doesn't wait. Needs to inform, not ask permission. Designed to start things others finish. Strategy: inform then act.
+
+Reflector — 1%. Completely open design. Reflects and amplifies the community around them. Needs 28 days before major decisions. Strategy: wait a lunar cycle.
+
+Drop your type below. And if you don't know yours yet — link in bio. Free to find out.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Drop your type below 👇 Don't know yours? Find it free — link in bio. #humandesign #generator #projector #manifestor #reflector #hdtype</div></div>
+  </div>
+  <div class="perf-row"><div class="perf-item">Comment engagement: <strong>Extremely high (type community)</strong></div><div class="perf-item">Saves: <strong>Very high</strong></div></div>
+</div>
+
+<!-- SCRIPTS 6-10 — Condensed -->
+<div class="sec-title">Category 2 — Relatable Identity Content</div>
+
+<!-- SCRIPT 6 -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">6</div><div><div class="sc-title">Things Only INFJs Will Understand</div><div class="sc-meta">Duration: 30s &bull; Format: Text overlay list</div><div class="tags"><div class="tag tag-hook">Hook</div><div class="tag tag-ugc">UGC</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Things only INFJs will understand (and everyone else will be confused by)</div></div>
+    <div class="sc-section"><div class="sc-label">Full Script</div>
+    <div class="script-text">Knowing someone's character before you've had a full conversation with them.
+
+Feeling exhausted after socializing with people you genuinely love.
+
+Having a fully formed opinion about something you've never consciously analyzed.
+
+Getting deeply hurt by something and saying nothing, then being "fine" until you suddenly aren't.
+
+Caring deeply about everyone you love and feeling completely alone at the same time.
+
+Seeing exactly what someone needs to hear and not saying it because the timing isn't right.
+
+Ending friendships or relationships silently, internally, weeks before the other person realizes anything changed.
+
+If this is your whole personality — your COSMO blueprint explains exactly why, from 4 different angles. Link in bio.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">The accuracy of the last one 💀 Find out why you're like this — link in bio. #infj #infjthings #mbti #personalitytype #introvert</div></div>
+  </div>
+</div>
+
+<!-- SCRIPT 7 -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">7</div><div><div class="sc-title">Life Path 7 Things</div><div class="sc-meta">Duration: 30s &bull; Text overlay</div><div class="tags"><div class="tag tag-hook">Hook</div><div class="tag tag-ugc">UGC</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Life Path 7s are built differently and if you are one you already know what I mean</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div>
+    <div class="script-text">You've been called an old soul since you were a child.
+
+You find small talk physically painful.
+
+You can spend an entire day alone and be completely fine. More than fine.
+
+You've always suspected there's a deeper reason things happen, even when you can't articulate it.
+
+You know things about people that you shouldn't logically be able to know.
+
+You've chosen depth over popularity your entire life, even when it cost you.
+
+You've gone through periods of complete isolation that felt necessary, not lonely.
+
+You're not anti-social. You're selectively social. There's a difference.
+
+If you're a Life Path 7, your cosmic blueprint explains the rest of the pattern. Link in bio.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">7s where you at 🔮 Drop your life path number below. Calculate yours and get your full blueprint — link in bio. #numerology #lifepath7 #lifepath #spiritualtiktok</div></div>
+  </div>
+</div>
+
+<!-- SCRIPT 8 -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">8</div><div><div class="sc-title">Scorpio Season Identity</div><div class="sc-meta">Duration: 30s &bull; Text overlay</div><div class="tags"><div class="tag tag-trend">Trending</div><div class="tag tag-hook">Hook</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Scorpios are not intense. The world is just shallow.</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div>
+    <div class="script-text">Scorpios are not intense. The world is just shallow.
+
+You don't do surface. You never have. A conversation that stays on the weather or the weekend for more than five minutes makes you feel vaguely ill.
+
+You can read a room in 30 seconds. You know who's lying before they finish the sentence.
+
+You love completely or not at all. There's no middle setting.
+
+You've been told you're too much. You've decided that's a them problem.
+
+You've destroyed and rebuilt yourself at least twice. Probably more.
+
+You hold grudges not out of weakness but out of memory. You remember everything.
+
+Your intensity isn't a flaw. It's what makes you unforgettable.
+
+Find out what all 4 systems say about your Scorpio energy — link in bio. It's free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Scorpios understood the assignment from birth 🦂 Get your full 4-system cosmic blueprint — link in bio. #scorpio #scorpioszn #astrology #zodiac #scorpioseason</div></div>
+  </div>
+</div>
+
+<div class="sec-title">Category 3 — Testimonial / Story Format</div>
+
+<!-- SCRIPT 9 -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">9</div><div><div class="sc-title">I Quit My Job After Reading This</div><div class="sc-meta">Duration: 45-60s &bull; Talking head / Story</div><div class="tags"><div class="tag tag-story">Story</div><div class="tag tag-ugc">UGC</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">I quit my job 6 weeks after reading my cosmic blueprint and here's exactly what it said</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div>
+    <div class="script-text">I quit my job 6 weeks after reading my cosmic blueprint and here's what it said.
+
+I'm a Life Path 4, ENTJ, Manifestor with a Capricorn sun.
+
+Every single system said the same thing: I'm designed to build and lead, not execute someone else's vision.
+
+My Life Path 4 is literally called "the builder." It's designed to create lasting structures.
+
+My ENTJ type is optimized for leadership, strategy, and making things happen at scale. It deteriorates in environments where it has no authority.
+
+My Manifestor type in Human Design — designed to initiate. Not respond, not wait. Initiate. The strategy is to inform, then move.
+
+And my Capricorn sun? Ambition, structure, mastery. Long game by nature.
+
+I'd spent 6 years executing inside a system I didn't build, with no real authority, waiting for permission I was never going to get.
+
+The blueprint didn't make me quit. But it made it impossible to stay.
+
+Link in bio if you want to see what yours says about your work.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">The clarity hit different 💥 Get your own 4-system career blueprint — link in bio, free to start. #career #humandesign #manifestor #entj #lifepath4 #quit</div></div>
+  </div>
+</div>
+
+<!-- SCRIPT 10 -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">10</div><div><div class="sc-title">My Boyfriend's Blueprint Saved Our Relationship</div><div class="sc-meta">Duration: 45s &bull; Talking head</div><div class="tags"><div class="tag tag-story">Story</div><div class="tag tag-ugc">UGC</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">I made my boyfriend do his cosmic blueprint and it explained every argument we've ever had</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div>
+    <div class="script-text">I made my boyfriend do his cosmic blueprint and it explained every argument we've ever had.
+
+I'm a Life Path 2, ENFP, Generator. He's a Life Path 4, INTJ, Manifestor.
+
+The compatibility section laid it out perfectly.
+
+My Generator strategy is to respond and be asked. I need to feel like my input is wanted before I give it.
+
+His Manifestor strategy is to decide and inform — not ask. He doesn't need input to act. He just does it and tells me after.
+
+So I felt steamrolled. He felt interrogated. Neither of us was wrong. We were just running completely different operating systems.
+
+Understanding the mechanics changed everything. We stopped taking it personally because it stopped being personal.
+
+You can do yours and a partner's back to back. Link in bio. Both free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Operating system incompatibility explained 💕 Get your blueprint + your partner's — link in bio, both free. #relationship #humandesign #mbti #couples #astrology</div></div>
+  </div>
+</div>
+
+<div class="sec-title">Category 4 — Educational Deep Dives</div>
+
+<!-- SCRIPTS 11-15 condensed -->
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">11</div><div><div class="sc-title">What Your Moon Sign Actually Means</div><div class="sc-meta">45s &bull; Educational</div><div class="tags"><div class="tag tag-edu">Educational</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Your sun sign is who you are. Your moon sign is who you are when nobody's watching.</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Your sun sign is your public personality. It's how you show up in the world.
+
+But your moon sign? That's your emotional reality. The version of you that exists when you're alone, stressed, in love, or falling apart.
+
+Moon in Aries — emotions fast and hot. Anger first, process later.
+Moon in Taurus — needs comfort, stability, and physical grounding to regulate.
+Moon in Gemini — processes emotions through talking or writing, not feeling.
+Moon in Cancer — deeply intuitive, absorbs the feelings of everyone around them.
+Moon in Leo — needs recognition and expression to feel emotionally safe.
+Moon in Virgo — analyzes emotions instead of feeling them, which is its own kind of feeling.
+Moon in Libra — needs harmony and partnership to feel whole.
+Moon in Scorpio — intensity, loyalty, and a long emotional memory.
+Moon in Sagittarius — needs freedom and meaning to stay emotionally healthy.
+Moon in Capricorn — suppresses emotions until they become walls.
+Moon in Aquarius — detaches from emotions as a survival mechanism.
+Moon in Pisces — feels everything, all the time, from everywhere.
+
+Drop your moon sign below. And link in bio shows you your full chart — free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Moon signs explained 🌙 Drop yours below. Get your full chart free — link in bio. #moonsign #astrology #birthchart #zodiac #astrologytiktok</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">12</div><div><div class="sc-title">Saturn Return Explained</div><div class="sc-meta">45s &bull; Educational / Timely</div><div class="tags"><div class="tag tag-edu">Educational</div><div class="tag tag-trend">Trending</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">If you're between 27 and 30 and your life is falling apart, that's not a crisis — that's Saturn</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Saturn takes about 29 years to orbit the sun and return to the position it was in when you were born.
+
+When it does — usually between ages 27-30 — everything in your life that isn't built on a real foundation starts to crack.
+
+Relationships that weren't working end. Careers that weren't right collapse. The version of yourself you built to please other people starts to fall apart.
+
+This isn't a punishment. It's an audit.
+
+Saturn is the planet of discipline, structure, and long-term mastery. Its return is asking you one question: what is actually yours? What have you built that's real?
+
+What survives Saturn's return is what's meant to last.
+
+What doesn't was always temporary.
+
+Your COSMO blueprint includes a Saturn section that shows you exactly what Saturn has been trying to teach you — and what your 30s are being built for. Link in bio. Free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Saturn return is not a vibe 🪐 Find out what yours means for you — link in bio. #saturnreturn #astrology #saturn #spiritualtiktok #27club</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">13</div><div><div class="sc-title">The Cognitive Functions Explained Fast</div><div class="sc-meta">60s &bull; Educational / MBTI</div><div class="tags"><div class="tag tag-edu">Educational</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">MBTI isn't just 4 letters — here are the 8 cognitive functions that actually explain why you think the way you do</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Most people know their 4-letter MBTI type. Almost nobody knows the cognitive functions that explain WHY.
+
+There are 8 functions. Everyone uses all 8, but in a specific order.
+
+Ni — Introverted Intuition. Subconscious pattern recognition. Delivers insights that feel psychic. Used by INFJs and INTJs.
+
+Ne — Extraverted Intuition. Brainstorming, possibilities, connections between unrelated things. Used by ENFPs and ENTPs.
+
+Si — Introverted Sensing. Detailed memory, tradition, comparison to past experience. Used by ISTJs and ISFJs.
+
+Se — Extraverted Sensing. Present-moment sensory awareness, action, physicality. Used by ESTPs and ESFPs.
+
+Fi — Introverted Feeling. Deep personal values, authenticity, knowing what feels right. Used by INFPs and ISFPs.
+
+Fe — Extraverted Feeling. Emotional attunement, harmony, reading the room. Used by ENFJs and ESFJs.
+
+Ti — Introverted Thinking. Internal logical frameworks, precision, categorizing. Used by INTPs and ISTPs.
+
+Te — Extraverted Thinking. Efficiency, systems, external logic, getting things done. Used by ENTJs and ESTJs.
+
+Your dominant function is your superpower. Your inferior function is your Achilles heel.
+
+Your COSMO blueprint breaks down your full cognitive stack. Link in bio.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Your 4-letter type is the surface. The functions are the depth 🧠 Get your full cognitive blueprint — link in bio. #mbti #cognitivefunctions #personalitytype #infj #intj</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">14</div><div><div class="sc-title">Personal Year Number 2026</div><div class="sc-meta">45s &bull; Timely / Numerology</div><div class="tags"><div class="tag tag-edu">Educational</div><div class="tag tag-trend">Trending</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Your Personal Year number for 2026 — here's how to calculate it and what it means</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Your Personal Year number tells you the energy and theme of any given year in your life.
+
+To find yours for 2026: add your birth month + birth day + 2 + 0 + 2 + 6. Keep reducing until you hit a single digit.
+
+Personal Year 1: New beginnings. Plant seeds. Start what you've been waiting on.
+Personal Year 2: Partnership and patience. Collaborate. Don't force things.
+Personal Year 3: Creativity and expression. Create. Be visible. Put things out.
+Personal Year 4: Work and foundation. Build systems. Do the unglamorous work.
+Personal Year 5: Change and freedom. Pivot. Travel. Disrupt your own comfort.
+Personal Year 6: Responsibility and love. Relationships, home, service.
+Personal Year 7: Reflection and depth. Go inward. Study. Rest more than you think you should.
+Personal Year 8: Achievement and power. Step into your ambition. The results arrive.
+Personal Year 9: Completion. Release what's done. Clear space for the next cycle.
+
+Drop yours below. And your COSMO blueprint combines this with your transits and HD cycle for a full 2026 forecast. Link in bio. Free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Calculate yours and drop it 👇 Get your full 2026 cosmic forecast free — link in bio. #numerology #2026 #personalyear #numerology2026 #forecast</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">15</div><div><div class="sc-title">Why You Can't Make Decisions</div><div class="sc-meta">45s &bull; Pain point / HD Authority</div><div class="tags"><div class="tag tag-value">Value</div><div class="tag tag-hook">Hook</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">The reason you're so bad at making decisions might be that you've been using the wrong authority</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">In Human Design, your Authority is the specific internal signal you're designed to trust when making decisions.
+
+And most people are using the wrong one.
+
+Sacral Authority — trust the gut yes or no in the moment. If there's no clear yes, it's a no.
+
+Emotional Authority — you don't have clarity in the moment. You need to feel decisions across time, through the emotional wave. Never decide at the peak or the valley.
+
+Splenic Authority — trust the spontaneous hit in the body. One-time signal. If you miss it, it doesn't come back.
+
+Ego Authority — what do you actually want? Not what you should want. What do you want?
+
+Self-Projected Authority — talk it out. Your truth is in what comes out of your mouth when you speak about it.
+
+Mental / Sifter Authority — you don't have inner authority. Trusted people in your environment give you clarity.
+
+Lunar Authority — Reflectors only. Wait 28 days for every major decision.
+
+If you've been making decisions with your head when you're designed to trust your gut — or waiting for gut feelings when you're designed to feel things over time — you've been operating on the wrong system.
+
+Your blueprint tells you your authority. Link in bio.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">This explained SO much for me 💡 Find your decision-making authority — link in bio, free. #humandesign #authority #hdauthority #decisions #humandesigntiktok</div></div>
+  </div>
+</div>
+
+<div class="sec-title">Category 5 — Trending Audio &amp; Formats</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">16</div><div><div class="sc-title">POV: You Find Out Your Human Design Type</div><div class="sc-meta">15-30s &bull; POV format / Trending</div><div class="tags"><div class="tag tag-trend">Trending</div><div class="tag tag-ugc">UGC</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">POV: you find out you're a Projector and suddenly your entire life makes sense</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">*Trending audio underneath*
+
+Text overlays:
+"you've been exhausted your whole life"
+"working like everyone else"
+"burning out on a schedule"
+"thinking something was wrong with you"
+"then you find out you're a Projector"
+"not designed to generate energy all day"
+"designed to guide, not grind"
+"suddenly: the burnout makes sense"
+"the resentment makes sense"
+"the feeling of being unseen makes sense"
+"you weren't doing it wrong"
+"you were doing someone else's design"
+
+*End card: "find your type — link in bio"*</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">The projector awakening is real 🌙 Find your HD type — link in bio. #projector #humandesign #hdprojector #burnout #pov</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">17</div><div><div class="sc-title">Things I Learned From My Cosmic Blueprint</div><div class="sc-meta">45s &bull; List format / UGC</div><div class="tags"><div class="tag tag-ugc">UGC</div><div class="tag tag-story">Story</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Things my cosmic blueprint told me that took me 28 years to figure out on my own</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Things my cosmic blueprint told me that took me 28 years to figure out on my own.
+
+I'm not lazy. I'm a Projector. I'm not designed to output like a Generator.
+
+I'm not too sensitive. I'm an INFJ with Extraverted Feeling as my second function. I literally absorb the emotional state of rooms.
+
+I'm not indecisive. I have Emotional Authority. I'm designed to feel decisions across time, not decide instantly.
+
+I'm not antisocial. I'm a Life Path 7 with a Scorpio sun. I need depth, not frequency.
+
+I'm not self-destructive. I have an undefined Root Center. I rush things to escape the pressure I feel from my environment.
+
+The blueprint didn't fix any of this. But it meant I stopped fighting my own design.
+
+Link in bio. It's free to start and it takes 30 seconds.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Stopped calling my design a flaw ✨ Get yours free — link in bio. #humandesign #mbti #infj #projector #lifepath7 #selfawareness</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">18</div><div><div class="sc-title">Tell Me Your Type Without Telling Me</div><div class="sc-meta">30s &bull; Trending format</div><div class="tags"><div class="tag tag-trend">Trending</div><div class="tag tag-hook">Hook</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Tell me you're an INFJ without telling me you're an INFJ</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">You've known someone's character before they showed it.
+You've canceled plans you were looking forward to because the energy felt off.
+You've written a message, deleted it, and never sent it.
+You've ended a friendship internally three weeks before the other person knew.
+You've felt someone's emotions across a room.
+You've given advice that changed someone's life and forgotten you said it.
+You've been called intimidating by people who've never seen you intimidated.
+You've been called mysterious by people you thought you were being obvious with.
+
+Drop your type in the comments.
+
+And if you want a full breakdown of why you're like this — link in bio. It's free.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">INFJs will feel this in their bones 💀 Drop your type below. Full breakdown free — link in bio. #infj #mbti #personalitytype #infjtiktok #relatable</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">19</div><div><div class="sc-title">The Shadow Work Entry Point</div><div class="sc-meta">45s &bull; Depth / Education</div><div class="tags"><div class="tag tag-edu">Educational</div><div class="tag tag-value">Value</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">Shadow work is not about fixing yourself — here's what it's actually for</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">Shadow work is not about fixing yourself.
+
+The shadow — a concept from Carl Jung — is not the bad parts of you. It's the unintegrated parts. The traits, desires, and tendencies that were rejected or suppressed, usually in childhood, because they weren't safe to express.
+
+The problem isn't that they exist. The problem is that because they're unexamined, they run unconsciously.
+
+They show up as the pattern you keep recreating in relationships. The self-sabotage that happens right before the win. The overreaction that doesn't match the situation. The chronic people-pleasing that ends in resentment.
+
+Shadow work isn't about eliminating these patterns. It's about making them conscious. Because what you can see, you can work with. What you can't see, runs you.
+
+Your cosmic blueprint maps your specific shadow pattern — across your astrology, your personality type, your numerology, and your Human Design. It doesn't come from one system's guess. It comes from where all four agree.
+
+Link in bio. The shadow section is in the full report.</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">Shadow work starts with seeing the pattern 🌑 Find yours — link in bio. #shadowwork #jungian #shadow #selfawareness #psychology #spiritualtiktok</div></div>
+  </div>
+</div>
+
+<div class="script-card">
+  <div class="sc-header"><div class="sc-left"><div class="sc-num">20</div><div><div class="sc-title">The Blueprint Screen Recording</div><div class="sc-meta">30s &bull; Demo / Screen record</div><div class="tags"><div class="tag tag-ugc">UGC</div><div class="tag tag-hook">Hook</div></div></div></div></div>
+  <div class="sc-body">
+    <div class="sc-section"><div class="sc-label">Hook</div><div class="hook-text">I need you to see what this generates when you put in your birth data</div></div>
+    <div class="sc-section"><div class="sc-label">Script</div><div class="script-text">*Screen recording of quiz → calculating animation → results page loading*
+
+Voiceover: "So this is called COSMO. You put in your birth date, time, and answer 8 questions."
+
+*Show quiz screens*
+
+"It then calculates your astrology chart, your numerology profile, your personality type, and your Human Design simultaneously."
+
+*Show calculation animation with all 4 systems processing*
+
+"And then it gives you your results."
+
+*Show results page: type cards appearing, free reveals loading*
+
+"This is the free version. Three reveals. And they're... accurate in a way that's uncomfortable."
+
+*Pause on shadow pattern section*
+
+"The full report is $9 and it goes eight sections deep. But start with the free version. Link in bio. Takes 30 seconds."</div></div>
+    <div class="sc-section"><div class="sc-label">Caption</div><div class="caption-text">The accuracy of the free version alone 👀 Try it free — link in bio. #cosmo #cosmicblueprint #astrology #humandesign #mbti #numerology</div></div>
+  </div>
+  <div class="perf-row"><div class="perf-item">Format: <strong>Screen recording converts extremely well — feels authentic, not promotional</strong></div></div>
+</div>
+
+</div>
+</body>
+</html>
