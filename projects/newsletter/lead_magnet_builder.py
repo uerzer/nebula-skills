@@ -1,0 +1,644 @@
+#!/usr/bin/env python3
+"""
+Edge Finder Lead Magnet Generator
+
+Creates professional PDF lead magnets from opportunity scanner data.
+
+Lead Magnets:
+1. "50 Validated Micro SaaS Ideas (2026 Edition)" - Main signup bonus
+2. "The Opportunity Scoring Framework" - 1-page cheat sheet
+3. "10 Crypto Arbitrage Plays This Month" - Premium preview
+
+Usage:
+    python lead_magnet_builder.py micro-saas [--limit 50]
+    python lead_magnet_builder.py scoring-framework
+    python lead_magnet_builder.py crypto-plays [--limit 10]
+    python lead_magnet_builder.py all  # Generate all lead magnets
+"""
+
+import json
+import argparse
+from datetime import datetime
+from pathlib import Path
+from typing import List, Dict, Optional
+import re
+
+# Try to import reportlab for PDF generation
+try:
+    from reportlab.lib.pagesizes import letter, A4
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, PageBreak, Table, TableStyle, Image
+    from reportlab.lib import colors
+    from reportlab.lib.enums import TA_CENTER, TA_LEFT, TA_JUSTIFY
+    REPORTLAB_AVAILABLE = True
+except ImportError:
+    REPORTLAB_AVAILABLE = False
+    print("⚠️  Warning: reportlab not installed. Install with: pip install reportlab")
+
+# Paths
+OUTPUTS_DIR = Path("outputs")
+SCANNER_OUTPUTS = OUTPUTS_DIR / "opportunity-scanners"
+LEAD_MAGNETS_DIR = OUTPUTS_DIR / "lead-magnets"
+
+
+class LeadMagnetBuilder:
+    def __init__(self):
+        self.outputs_dir = OUTPUTS_DIR
+        self.scanner_outputs = SCANNER_OUTPUTS
+        self.lead_magnets_dir = LEAD_MAGNETS_DIR
+        self.lead_magnets_dir.mkdir(parents=True, exist_ok=True)
+        
+    def _load_scanner_data(self) -> List[Dict]:
+        """Load all available scanner outputs"""
+        opportunities = []
+        
+        if not self.scanner_outputs.exists():
+            print(f"⚠️  Scanner outputs directory not found: {self.scanner_outputs}")
+            return opportunities
+        
+        # Load JSON outputs from scanners
+        for json_file in self.scanner_outputs.glob("*.json"):
+            try:
+                with open(json_file, 'r') as f:
+                    data = json.load(f)
+                    
+                    # Extract opportunities based on scanner structure
+                    if isinstance(data, list):
+                        opportunities.extend(data)
+                    elif isinstance(data, dict):
+                        if 'opportunities' in data:
+                            opportunities.extend(data['opportunities'])
+                        elif 'results' in data:
+                            opportunities.extend(data['results'])
+                        else:
+                            opportunities.append(data)
+            except Exception as e:
+                print(f"⚠️  Could not load {json_file.name}: {e}")
+        
+        return opportunities
+    
+    def _score_opportunity(self, opp: Dict) -> float:
+        """Calculate opportunity score (0-10)"""
+        score = 5.0  # Base score
+        
+        # Scoring factors
+        if opp.get('upvotes', 0) > 100:
+            score += 1.0
+        if opp.get('comments', 0) > 50:
+            score += 0.5
+        if opp.get('trending', False):
+            score += 1.5
+        if opp.get('sentiment', '').lower() in ['positive', 'excited', 'frustrated']:
+            score += 1.0
+        if opp.get('market_size', '').lower() in ['large', 'growing']:
+            score += 1.0
+        if opp.get('competition', '').lower() in ['low', 'none']:
+            score += 1.0
+        
+        return min(score, 10.0)
+    
+    def _extract_idea_data(self, opp: Dict) -> Dict:
+        """Extract and format opportunity data for PDF"""
+        return {
+            'name': opp.get('title', opp.get('name', 'Untitled Opportunity')),
+            'problem': opp.get('problem', opp.get('pain_point', 'User frustration identified')),
+            'solution': opp.get('solution', opp.get('suggested_solution', 'Build a tool to solve this')),
+            'market_size': opp.get('market_size', 'Medium'),
+            'competition': opp.get('competition', 'Unknown'),
+            'difficulty': opp.get('difficulty', opp.get('execution_difficulty', 'Medium')),
+            'capital': opp.get('capital_needed', opp.get('initial_investment', 'Low ($0-5k)')),
+            'score': opp.get('score', self._score_opportunity(opp)),
+            'source': opp.get('source', opp.get('platform', 'Scanner')),
+            'category': opp.get('category', opp.get('type', 'General'))
+        }
+    
+    def generate_markdown_version(self, ideas: List[Dict], output_file: Path, title: str):
+        """Generate Markdown version of lead magnet"""
+        with open(output_file, 'w') as f:
+            f.write(f"# {title}\n\n")
+            f.write(f"*Generated by Edge Finder on {datetime.now().strftime('%Y-%m-%d')}*\n\n")
+            f.write("---\n\n")
+            
+            for i, idea in enumerate(ideas, 1):
+                f.write(f"## {i}. {idea['name']}\n\n")
+                f.write(f"**Category:** {idea['category']} | **Score:** {idea['score']:.1f}/10\n\n")
+                
+                f.write(f"### 🎯 Problem\n{idea['problem']}\n\n")
+                f.write(f"### 💡 Solution\n{idea['solution']}\n\n")
+                
+                f.write(f"### 📊 Market Intel\n")
+                f.write(f"- **Market Size:** {idea['market_size']}\n")
+                f.write(f"- **Competition:** {idea['competition']}\n")
+                f.write(f"- **Difficulty:** {idea['difficulty']}\n")
+                f.write(f"- **Capital Needed:** {idea['capital']}\n")
+                f.write(f"- **Source:** {idea['source']}\n\n")
+                
+                f.write("---\n\n")
+            
+            f.write(f"\n\n*Want fresh opportunities every week? Subscribe to Edge Finder at https://edgefinder.com*\n")
+    
+    def generate_pdf_version(self, ideas: List[Dict], output_file: Path, title: str):
+        """Generate professional PDF version"""
+        if not REPORTLAB_AVAILABLE:
+            print("❌ PDF generation requires reportlab. Install with: pip install reportlab")
+            return False
+        
+        # Create PDF
+        doc = SimpleDocTemplate(str(output_file), pagesize=letter,
+                               topMargin=0.75*inch, bottomMargin=0.75*inch)
+        
+        story = []
+        styles = getSampleStyleSheet()
+        
+        # Custom styles
+        title_style = ParagraphStyle(
+            'CustomTitle',
+            parent=styles['Heading1'],
+            fontSize=24,
+            textColor=colors.HexColor('#4f46e5'),
+            spaceAfter=30,
+            alignment=TA_CENTER,
+            fontName='Helvetica-Bold'
+        )
+        
+        subtitle_style = ParagraphStyle(
+            'CustomSubtitle',
+            parent=styles['Normal'],
+            fontSize=10,
+            textColor=colors.grey,
+            spaceAfter=20,
+            alignment=TA_CENTER
+        )
+        
+        heading_style = ParagraphStyle(
+            'CustomHeading',
+            parent=styles['Heading2'],
+            fontSize=16,
+            textColor=colors.HexColor('#4f46e5'),
+            spaceAfter=12,
+            spaceBefore=12,
+            fontName='Helvetica-Bold'
+        )
+        
+        subheading_style = ParagraphStyle(
+            'CustomSubheading',
+            parent=styles['Heading3'],
+            fontSize=12,
+            textColor=colors.HexColor('#1a1a1a'),
+            spaceAfter=8,
+            spaceBefore=8,
+            fontName='Helvetica-Bold'
+        )
+        
+        body_style = ParagraphStyle(
+            'CustomBody',
+            parent=styles['Normal'],
+            fontSize=10,
+            leading=14,
+            spaceAfter=10,
+            alignment=TA_JUSTIFY
+        )
+        
+        # Title page
+        story.append(Spacer(1, 0.5*inch))
+        story.append(Paragraph(title, title_style))
+        story.append(Paragraph(f"Generated by Edge Finder | {datetime.now().strftime('%B %d, %Y')}", subtitle_style))
+        story.append(Spacer(1, 0.3*inch))
+        
+        # Introduction
+        intro_text = """
+        <b>Welcome to Edge Finder's Opportunity Intelligence.</b><br/><br/>
+        This report contains validated micro SaaS opportunities discovered by our AI scanner network. 
+        Each opportunity has been scored based on market signals, user frustration levels, competition, 
+        and execution feasibility.<br/><br/>
+        Use this as your launchpad to find product-market fit before the crowd catches on.
+        """
+        story.append(Paragraph(intro_text, body_style))
+        story.append(Spacer(1, 0.3*inch))
+        
+        # How to use section
+        story.append(Paragraph("📖 How to Use This Guide", heading_style))
+        how_to_text = """
+        <b>1. Score:</b> Higher scores (8-10) = stronger signals, lower competition, higher urgency<br/>
+        <b>2. Problem:</b> The pain point or user frustration driving demand<br/>
+        <b>3. Solution:</b> What to build (MVP scope)<br/>
+        <b>4. Market Intel:</b> Size, competition, difficulty, and capital requirements<br/>
+        <b>5. Action:</b> Pick 1-2 ideas that match your skills and validate with landing page + ads
+        """
+        story.append(Paragraph(how_to_text, body_style))
+        story.append(PageBreak())
+        
+        # Ideas
+        for i, idea in enumerate(ideas, 1):
+            # Idea header with score badge
+            idea_header_data = [[
+                f"#{i}",
+                idea['name'],
+                f"Score: {idea['score']:.1f}/10"
+            ]]
+            
+            idea_header_table = Table(idea_header_data, colWidths=[0.5*inch, 4.5*inch, 1.5*inch])
+            idea_header_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, 0), colors.HexColor('#4f46e5')),
+                ('BACKGROUND', (1, 0), (1, 0), colors.HexColor('#f8f9fa')),
+                ('BACKGROUND', (2, 0), (2, 0), colors.HexColor('#10b981')),
+                ('TEXTCOLOR', (0, 0), (0, 0), colors.white),
+                ('TEXTCOLOR', (1, 0), (1, 0), colors.black),
+                ('TEXTCOLOR', (2, 0), (2, 0), colors.white),
+                ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                ('ALIGN', (2, 0), (2, 0), 'CENTER'),
+                ('FONTNAME', (0, 0), (-1, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 11),
+                ('LEFTPADDING', (0, 0), (-1, -1), 8),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+                ('TOPPADDING', (0, 0), (-1, -1), 6),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
+            ]))
+            
+            story.append(idea_header_table)
+            story.append(Spacer(1, 0.15*inch))
+            
+            # Category
+            story.append(Paragraph(f"<b>Category:</b> {idea['category']}", body_style))
+            story.append(Spacer(1, 0.1*inch))
+            
+            # Problem
+            story.append(Paragraph("🎯 The Problem", subheading_style))
+            story.append(Paragraph(idea['problem'], body_style))
+            
+            # Solution
+            story.append(Paragraph("💡 The Solution", subheading_style))
+            story.append(Paragraph(idea['solution'], body_style))
+            
+            # Market Intel table
+            story.append(Paragraph("📊 Market Intelligence", subheading_style))
+            market_data = [
+                ['Market Size', idea['market_size']],
+                ['Competition', idea['competition']],
+                ['Execution Difficulty', idea['difficulty']],
+                ['Capital Needed', idea['capital']],
+                ['Signal Source', idea['source']]
+            ]
+            
+            market_table = Table(market_data, colWidths=[2*inch, 4.5*inch])
+            market_table.setStyle(TableStyle([
+                ('BACKGROUND', (0, 0), (0, -1), colors.HexColor('#f8f9fa')),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
+                ('ALIGN', (0, 0), (0, -1), 'LEFT'),
+                ('ALIGN', (1, 0), (1, -1), 'LEFT'),
+                ('FONTNAME', (0, 0), (0, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('LEFTPADDING', (0, 0), (-1, -1), 8),
+                ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+                ('TOPPADDING', (0, 0), (-1, -1), 4),
+                ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.grey)
+            ]))
+            
+            story.append(market_table)
+            story.append(Spacer(1, 0.2*inch))
+            
+            # Add page break after every 2 ideas (except last)
+            if i < len(ideas) and i % 2 == 0:
+                story.append(PageBreak())
+        
+        # Footer page
+        story.append(PageBreak())
+        story.append(Spacer(1, inch))
+        
+        footer_text = """
+        <b>Want Fresh Opportunities Every Week?</b><br/><br/>
+        Subscribe to <b>Edge Finder</b> for weekly intelligence on mispriced opportunities, 
+        viral trends, and emerging plays - all powered by AI scanners + human insight.<br/><br/>
+        <b>Free:</b> Weekly newsletter with top 3 opportunities<br/>
+        <b>Premium ($49/mo):</b> Raw scanner data, crypto alerts, private Discord, live Q&A<br/><br/>
+        <b>Join 500+ founders finding their next edge:</b><br/>
+        https://edgefinder.com
+        """
+        
+        footer_style = ParagraphStyle(
+            'Footer',
+            parent=styles['Normal'],
+            fontSize=11,
+            leading=16,
+            alignment=TA_CENTER,
+            spaceAfter=10
+        )
+        
+        story.append(Paragraph(footer_text, footer_style))
+        
+        # Build PDF
+        doc.build(story)
+        return True
+    
+    def generate_micro_saas_ideas(self, limit: int = 50) -> str:
+        """Generate '50 Validated Micro SaaS Ideas' lead magnet"""
+        print(f"\n📄 Generating Micro SaaS Ideas lead magnet (limit: {limit})...")
+        
+        # Load scanner data
+        raw_opportunities = self._load_scanner_data()
+        
+        if not raw_opportunities:
+            print("⚠️  No scanner data found. Using sample data...")
+            raw_opportunities = self._get_sample_opportunities()
+        
+        # Process and score
+        ideas = [self._extract_idea_data(opp) for opp in raw_opportunities]
+        ideas.sort(key=lambda x: x['score'], reverse=True)
+        ideas = ideas[:limit]
+        
+        print(f"📊 Processed {len(ideas)} opportunities")
+        
+        # Generate files
+        timestamp = datetime.now().strftime('%Y-%m-%d')
+        base_name = f"50_micro_saas_ideas_{timestamp}"
+        
+        md_file = self.lead_magnets_dir / f"{base_name}.md"
+        pdf_file = self.lead_magnets_dir / f"{base_name}.pdf"
+        
+        # Markdown version
+        self.generate_markdown_version(
+            ideas, 
+            md_file,
+            "50 Validated Micro SaaS Ideas (2026 Edition)"
+        )
+        print(f"✅ Markdown version: {md_file}")
+        
+        # PDF version
+        if REPORTLAB_AVAILABLE:
+            success = self.generate_pdf_version(
+                ideas,
+                pdf_file,
+                "50 Validated Micro SaaS Ideas (2026 Edition)"
+            )
+            if success:
+                print(f"✅ PDF version: {pdf_file}")
+        else:
+            print(f"⚠️  Skipping PDF (install reportlab)")
+        
+        return str(pdf_file if REPORTLAB_AVAILABLE else md_file)
+    
+    def generate_scoring_framework(self) -> str:
+        """Generate 1-page scoring framework cheat sheet"""
+        print(f"\n📄 Generating Opportunity Scoring Framework...")
+        
+        timestamp = datetime.now().strftime('%Y-%m-%d')
+        md_file = self.lead_magnets_dir / f"opportunity_scoring_framework_{timestamp}.md"
+        
+        content = """# The Opportunity Scoring Framework
+
+*Edge Finder's proprietary system for evaluating market opportunities*
+
+---
+
+## 🎯 How to Score Any Opportunity (0-10 Scale)
+
+### Signal Strength (0-3 points)
+- **3 pts:** Viral trend (1000+ upvotes/shares), major news coverage
+- **2 pts:** Strong engagement (100-1000 upvotes), trending on niche platforms
+- **1 pt:** Moderate signal (10-100 upvotes), scattered mentions
+- **0 pts:** Weak signal (<10 upvotes), one-off complaint
+
+### User Pain Intensity (0-2 points)
+- **2 pts:** RAGE ("this is driving me insane", "I'd pay anything")
+- **1 pt:** Frustration ("annoying", "wish someone would build")
+- **0 pts:** Mild inconvenience ("would be nice to have")
+
+### Market Size (0-2 points)
+- **2 pts:** Large TAM (1M+ potential users, $100M+ market)
+- **1 pt:** Niche but growing (10K-1M users, $10M-100M market)
+- **0 pts:** Tiny niche (<10K users, <$10M market)
+
+### Competition Level (0-2 points)
+- **2 pts:** No direct competitor, gap in market
+- **1 pt:** Few weak competitors, no clear winner
+- **0 pts:** Saturated market, strong incumbents
+
+### Execution Difficulty (0-1 point)
+- **1 pt:** Can ship MVP in 2-4 weeks with available tools
+- **0 pts:** Requires months of development or specialized expertise
+
+---
+
+## 🚦 Score Interpretation
+
+| Score | Action |
+|-------|--------|
+| **8-10** | 🔥 DROP EVERYTHING - validate immediately |
+| **6-7**  | ✅ Strong signal - add to shortlist, research deeper |
+| **4-5**  | ⚠️ Maybe - needs more validation or timing isn't right |
+| **0-3**  | ❌ Skip - weak signal or too risky |
+
+---
+
+## 🛠️ Validation Checklist
+
+Before building, answer these:
+
+1. **Can I build an MVP in 2-4 weeks?**
+2. **Is there a clear monetization path?**
+3. **Can I reach the target audience organically?**
+4. **Would I use this myself?**
+5. **Is the problem getting worse or better?**
+
+If you answered YES to 4+ questions → Build it!
+
+---
+
+## 📊 Example Scoring
+
+**Opportunity:** iOS keyboard for developers (syntax shortcuts)
+
+- Signal Strength: 2 pts (Reddit post, 500 upvotes, dozens agreeing)
+- Pain Intensity: 2 pts ("I literally waste hours typing brackets")
+- Market Size: 1 pt (500K iOS devs, niche but valuable)
+- Competition: 2 pts (No iOS keyboard specifically for devs)
+- Execution: 1 pt (iOS keyboard extensions are standard tech)
+
+**Total: 8/10** → 🔥 Build it!
+
+---
+
+*Get weekly scored opportunities in your inbox: https://edgefinder.com*
+"""
+        
+        with open(md_file, 'w') as f:
+            f.write(content)
+        
+        print(f"✅ Scoring framework: {md_file}")
+        return str(md_file)
+    
+    def generate_crypto_plays(self, limit: int = 10) -> str:
+        """Generate crypto arbitrage plays preview"""
+        print(f"\n📄 Generating Crypto Plays preview (limit: {limit})...")
+        
+        timestamp = datetime.now().strftime('%Y-%m-%d')
+        md_file = self.lead_magnets_dir / f"crypto_plays_{timestamp}.md"
+        
+        # Load crypto-specific scanner data
+        raw_opportunities = self._load_scanner_data()
+        crypto_opps = [opp for opp in raw_opportunities if 
+                      'crypto' in str(opp).lower() or 
+                      'defi' in str(opp).lower() or
+                      'arbitrage' in str(opp).lower()]
+        
+        if not crypto_opps:
+            print("⚠️  No crypto opportunities found in scanner data")
+            crypto_opps = []
+        
+        content = f"""# 10 Crypto Arbitrage Plays This Month
+
+*Premium Preview from Edge Finder*
+
+---
+
+## 🔐 Premium Content Preview
+
+Edge Finder Premium subscribers get:
+- Real-time arbitrage alerts (price discrepancies >2%)
+- Cross-exchange monitoring (Binance, Coinbase, Kraken, DEXs)
+- Gas fee optimization strategies
+- Risk scoring for each play
+- Automated execution scripts
+
+**Found {len(crypto_opps)} crypto opportunities this month.**
+
+---
+
+## Sample Play #1: Cross-Exchange Arbitrage
+
+**Pair:** ETH/USDC  
+**Spread:** 0.8% (after fees)  
+**Volume:** $50K+ daily  
+**Exchanges:** Coinbase Pro → Binance  
+**Risk:** Low (established exchanges, liquid pair)  
+
+**Strategy:**  
+Buy on Coinbase Pro when price dips 0.5% below Binance, transfer to Binance, sell for profit. Account for gas fees (~$10-20) and transfer time (10-30 min).
+
+---
+
+## Sample Play #2: DEX Triangular Arbitrage
+
+**Route:** USDC → ETH → MATIC → USDC  
+**Expected Gain:** 1.2% per cycle  
+**Platform:** Uniswap V3  
+**Risk:** Medium (impermanent loss, MEV bots)  
+
+**Strategy:**  
+Use flash loans to execute triangular arbitrage on Uniswap V3 pools. Monitor pool imbalances and execute when spread >1.5%.
+
+---
+
+## 🎯 Want Full Access?
+
+Premium members get:
+- 10-15 scored crypto plays per month
+- Real-time alerts via Discord
+- Execution scripts and tutorials
+- Community of crypto traders
+- Live Q&A with DeFi experts
+
+**Upgrade to Premium: $49/mo**  
+https://edgefinder.com/premium
+
+---
+
+*Free newsletter subscribers get weekly opportunities across all sectors.*  
+*Subscribe at: https://edgefinder.com*
+"""
+        
+        with open(md_file, 'w') as f:
+            f.write(content)
+        
+        print(f"✅ Crypto plays preview: {md_file}")
+        return str(md_file)
+    
+    def _get_sample_opportunities(self) -> List[Dict]:
+        """Return sample opportunities for testing"""
+        return [
+            {
+                'title': 'iOS Keyboard for Developers',
+                'problem': 'iOS devs waste hours typing brackets, semicolons, and syntax manually',
+                'solution': 'Custom iOS keyboard with syntax shortcuts, code snippet expansion',
+                'market_size': 'Medium',
+                'competition': 'Low',
+                'difficulty': 'Medium',
+                'capital_needed': 'Low ($0-5k)',
+                'score': 8.5,
+                'source': 'Reddit r/iOSProgramming',
+                'category': 'Developer Tools'
+            },
+            {
+                'title': 'Crypto Portfolio Tracker with Alerts',
+                'problem': 'Traders miss price movements and arbitrage opportunities',
+                'solution': 'Real-time portfolio tracker with custom alerts and cross-exchange monitoring',
+                'market_size': 'Large',
+                'competition': 'Medium',
+                'difficulty': 'Medium',
+                'capital_needed': 'Medium ($5k-20k)',
+                'score': 7.8,
+                'source': 'Twitter Crypto CT',
+                'category': 'Crypto'
+            },
+            {
+                'title': 'News Aggregator with Signal Detection',
+                'problem': 'Information overload, hard to spot emerging trends in news flood',
+                'solution': 'AI-powered news aggregator that scores and highlights market-moving signals',
+                'market_size': 'Large',
+                'competition': 'High',
+                'difficulty': 'High',
+                'capital_needed': 'Medium ($10k-30k)',
+                'score': 6.5,
+                'source': 'Product Hunt',
+                'category': 'Productivity'
+            }
+        ]
+    
+    def generate_all(self):
+        """Generate all lead magnets"""
+        print("\n🎁 Generating ALL lead magnets...\n")
+        print("="*60)
+        
+        files = []
+        
+        # Micro SaaS Ideas
+        files.append(self.generate_micro_saas_ideas(50))
+        
+        # Scoring Framework
+        files.append(self.generate_scoring_framework())
+        
+        # Crypto Plays
+        files.append(self.generate_crypto_plays(10))
+        
+        print("\n" + "="*60)
+        print(f"\n✅ Generated {len(files)} lead magnets!")
+        print(f"📁 Output directory: {self.lead_magnets_dir}\n")
+        
+        return files
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Edge Finder Lead Magnet Generator")
+    parser.add_argument('type', choices=['micro-saas', 'scoring-framework', 'crypto-plays', 'all'],
+                       help='Type of lead magnet to generate')
+    parser.add_argument('--limit', type=int, default=50,
+                       help='Number of ideas/plays to include (for micro-saas and crypto-plays)')
+    
+    args = parser.parse_args()
+    
+    builder = LeadMagnetBuilder()
+    
+    if args.type == 'micro-saas':
+        builder.generate_micro_saas_ideas(args.limit)
+    elif args.type == 'scoring-framework':
+        builder.generate_scoring_framework()
+    elif args.type == 'crypto-plays':
+        builder.generate_crypto_plays(args.limit)
+    elif args.type == 'all':
+        builder.generate_all()
+
+
+if __name__ == '__main__':
+    main()
