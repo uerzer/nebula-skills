@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — Ad Copy Vault</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text)}
+.top{background:var(--card);border-bottom:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.top h1{font-size:18px;font-weight:700}.top p{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:10px}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 24px 80px}
+.strategy{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:36px}
+.strategy h2{font-size:16px;font-weight:700;color:var(--gold);margin-bottom:12px}
+.strategy p{font-size:14px;color:var(--muted);line-height:1.65;margin-bottom:8px}
+.strat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:16px}
+.strat-item{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px}
+.strat-item h4{font-size:13px;font-weight:700;color:#fff;margin-bottom:6px}
+.strat-item p{font-size:12px;color:var(--muted);line-height:1.5}
+.section-title{font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:32px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.ad-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:0;margin-bottom:20px;overflow:hidden}
+.ad-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ad-header-left{display:flex;align-items:center;gap:12px}
+.ad-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#000;flex-shrink:0;background:var(--gold)}
+.ad-title{font-size:15px;font-weight:700}
+.ad-meta{font-size:12px;color:var(--muted);margin-top:2px}
+.tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+.tag-cold{background:rgba(52,152,219,.15);color:#85c1e9}
+.tag-warm{background:rgba(230,126,34,.15);color:#f0a050}
+.tag-retarget{background:rgba(231,76,60,.15);color:#e88}
+.tag-video{background:rgba(155,89,182,.15);color:#c39bd3}
+.tag-image{background:rgba(46,204,113,.15);color:#2ecc71}
+.tag-carousel{background:rgba(201,168,76,.15);color:var(--gold)}
+.ad-formats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;border-top:1px solid var(--border)}
+.format{padding:22px 24px;border-right:1px solid var(--border)}
+.format:last-child{border-right:none}
+@media(max-width:700px){.format{border-right:none;border-bottom:1px solid var(--border)}.format:last-child{border-bottom:none}}
+.format-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.format-label span{font-size:16px}
+.headline{font-size:16px;font-weight:700;line-height:1.3;margin-bottom:10px;color:#fff}
+.body-copy{font-size:13px;line-height:1.7;color:var(--text);white-space:pre-wrap}
+.cta-line{display:inline-block;margin-top:10px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.2);color:var(--gold);font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px}
+.ad-notes{padding:16px 24px;background:rgba(201,168,76,.03);border-top:1px solid var(--border);font-size:12px;color:var(--muted);line-height:1.6}
+.ad-notes strong{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div><h1>COSMO — Ad Copy Vault</h1><p>10 ads &times; 3 formats = 30 pieces of copy. Facebook, Instagram, TikTok Spark Ads.</p></div>
+  <div class="badge">30 Copy Pieces</div>
+</div>
+<div class="wrap">
+
+<div class="strategy">
+  <h2>Ad Strategy Overview</h2>
+  <p>COSMO runs a 3-stage funnel: cold traffic to free quiz, warm retargeting to $9 report, buyer retargeting to $47 membership. All ads drive to the quiz page (index.html) as the entry point — the quiz converts better than a direct sales page because it's interactive and free.</p>
+  <div class="strat-grid">
+    <div class="strat-item"><h4>Stage 1: Cold</h4><p>Broad audiences. Astrology interest, MBTI interest, self-improvement. Hook with curiosity or identity. CTA: free quiz.</p></div>
+    <div class="strat-item"><h4>Stage 2: Warm</h4><p>Website visitors who didn't purchase. Lookalikes of buyers. CTA: $9 report, direct link to results/OTO.</p></div>
+    <div class="strat-item"><h4>Stage 3: Retarget</h4><p>People who started quiz but didn't complete. Email list. CTA: finish your blueprint.</p></div>
+    <div class="strat-item"><h4>Creative Format</h4><p>Video (Reels/TikTok) for cold. Static image for warm. Carousel for comparison/education.</p></div>
+    <div class="strat-item"><h4>Targeting</h4><p>Interests: Astrology, Human Design, MBTI, personality tests, self-help, manifestation, spirituality.</p></div>
+    <div class="strat-item"><h4>Budget Split</h4><p>60% cold video, 25% warm static, 15% retarget. Scale what converts at &lt;$3 CPL on cold.</p></div>
+  </div>
+</div>
+
+<div class="section-title">Cold Traffic Ads — Free Quiz Hook</div>
+
+<!-- AD 1 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">1</div>
+      <div><div class="ad-title">The Psychic Hit</div><div class="ad-meta">Cold &bull; Curiosity hook &bull; Highest CTR format</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-cold">Cold</div><div class="tag tag-video">Video</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#127916;</span> Video Script (0–15s hook)</div>
+      <div class="headline">POV: An AI just read your birth data across 4 systems and it knows things about you that took you 30 years to figure out</div>
+      <div class="body-copy">*Screen recording of results page populating*
+"It got my shadow pattern exactly right"
+"This is why I keep burning out"
+"How does it know about the door slam thing"
+"The career section made me put my phone down"
+
+4 systems. 1 truth. Free.
+Get yours at cosmo.app</div>
+      <div class="cta-line">Get Your Free Blueprint</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">Your birth data contains a map. Most people never read it.</div>
+      <div class="body-copy">COSMO cross-references your astrology chart, numerology, personality type, and Human Design — and shows you where they all agree.
+
+That convergence point is who you actually are.
+
+Not a horoscope. Not a personality quiz. A full system analysis. Free to start.</div>
+      <div class="cta-line">Generate Your Blueprint — Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> The video format works best as a screen recording with reaction text overlaid — feels organic/UGC. The "door slam thing" reference will resonate specifically with INFJs and create strong self-selection. Target: MBTI interests, INFJ/INTJ specifically.</div>
+</div>
+
+<!-- AD 2 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">2</div>
+      <div><div class="ad-title">The 4-System Explanation</div><div class="ad-meta">Cold &bull; Education hook &bull; Best for engaged audiences</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-cold">Cold</div><div class="tag tag-carousel">Carousel</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128257;</span> Carousel (6 slides)</div>
+      <div class="headline">Slide 1: Why single-system readings are only 25% of the picture</div>
+      <div class="body-copy">Slide 1: "Astrology alone tells you your context. Numerology tells you your mission. Personality type tells you your mind. Human Design tells you your energy. Most people only know one. COSMO combines all four."
+
+Slide 2: "Your sun sign — what most people stop at. It's your outer personality. But it doesn't tell you HOW your mind works or what you're energetically designed for."
+
+Slide 3: "Your Life Path number — calculated from your exact birth date. It reveals your soul mission and what this specific year holds for you."
+
+Slide 4: "Your personality type — not just introvert/extrovert. The cognitive function stack behind your type explains WHY you think the way you do."
+
+Slide 5: "Your Human Design type — the newest system. Generator, Projector, Manifestor, or Reflector. It determines your energy strategy and how you're meant to work and decide."
+
+Slide 6: "COSMO runs all four simultaneously and finds where they agree. That agreement is your core truth. Free to generate. Takes 30 seconds."</div>
+      <div class="cta-line">Generate Yours Free</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">Your astrology chart is 25% of the picture. Here's the other 75%.</div>
+      <div class="body-copy">Astrology = your cosmic context
+Numerology = your life mission
+Personality type = your cognitive architecture
+Human Design = your energy design
+
+Most readings give you one. COSMO gives you all four — combined into one profile that shows you where they agree.
+
+That's your truth. Free to generate.</div>
+      <div class="cta-line">Get All 4 Systems Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Carousel format educates and filters. People who swipe through all 6 slides are highly qualified leads. Target: existing astrology/HD/MBTI audiences who are already believers in at least one system.</div>
+</div>
+
+<!-- AD 3 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">3</div>
+      <div><div class="ad-title">The Burnout Hook</div><div class="ad-meta">Cold &bull; Pain point &bull; Projector/introvert audiences</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-cold">Cold</div><div class="tag tag-video">Video</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#127916;</span> Video Hook (first 3 seconds)</div>
+      <div class="headline">If you burn out faster than everyone around you, it might not be a willpower problem</div>
+      <div class="body-copy">It might be that you're designed differently.
+
+Human Design Projectors make up 20% of the population. They're not designed to sustain 8-hour workdays. They're designed to work in focused bursts and guide others — not generate energy all day.
+
+MBTI intuitives (N-types) process at a depth that costs more energy than sensing types. It's not inefficiency. It's architecture.
+
+Knowing your design doesn't fix burnout. But it tells you exactly what conditions you need to stop recreating it.
+
+Your cosmic blueprint shows you this — free, in 30 seconds.
+
+cosmo.app</div>
+      <div class="cta-line">See Your Design — Free</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">You're not lazy. You might just be a Projector trying to work like a Generator.</div>
+      <div class="body-copy">Human Design says only 37% of people are built to sustain high-output energy all day. The other 63% are designed differently — with different strategies, different rhythms, different needs.
+
+Your blueprint tells you which one you are. And what to do about it.
+
+Free to generate. No credit card.</div>
+      <div class="cta-line">Find Your Energy Type — Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> The burnout angle is one of the highest-performing hooks in the self-help/spiritual space right now. Target: burnout, hustle culture, work-life balance, productivity interests. Also self-selects for HD-aware audiences.</div>
+</div>
+
+<!-- AD 4 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">4</div>
+      <div><div class="ad-title">The Relationship Hook</div><div class="ad-meta">Cold &bull; Relationship pain &bull; Wide audience</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-cold">Cold</div><div class="tag tag-video">Video</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#127916;</span> Video Hook</div>
+      <div class="headline">The reason you keep ending up in the same type of relationship is in your birth data</div>
+      <div class="body-copy">Your Venus sign shows how you love.
+Your Life Path shows what you need.
+Your personality type shows how you communicate.
+Your Human Design shows your relationship energy pattern.
+
+When you combine all four, you get a clear picture of the exact dynamic you keep recreating — and why.
+
+COSMO does this for free. It takes 30 seconds.
+
+cosmo.app</div>
+      <div class="cta-line">Find Your Love Pattern — Free</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">Your birth chart knows why you keep attracting emotionally unavailable people.</div>
+      <div class="body-copy">Harsh? Maybe. But the pattern is in your Venus sign, your attachment style (encoded in your personality type), and your HD undefined centers.
+
+COSMO combines all four cosmic systems and shows you the relationship pattern you keep recreating — and what your ideal partner actually looks like.
+
+Free. No credit card. 30 seconds.</div>
+      <div class="cta-line">See Your Love Archetype — Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> "Emotionally unavailable" is a loaded phrase that creates instant recognition. Test both headline versions. Target: relationship advice, attachment theory, self-improvement interests. Wide demographic — 25-45, skews female.</div>
+</div>
+
+<!-- AD 5 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">5</div>
+      <div><div class="ad-title">The Career Identity Hook</div><div class="ad-meta">Cold &bull; Career crisis audience &bull; High intent</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-cold">Cold</div><div class="tag tag-image">Image</div><div class="tag tag-carousel">Carousel</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image A</div>
+      <div class="headline">You've been in the wrong career and your birth data has been trying to tell you for years.</div>
+      <div class="body-copy">Your Life Path number carries a specific mission. Your personality type has 3 career environments where it thrives and several where it consistently fails. Your Human Design strategy tells you how to pursue opportunities — and how NOT to.
+
+When these three systems agree on a career direction, you should listen.
+
+COSMO shows you where they converge. Free. 30 seconds.</div>
+      <div class="cta-line">Find Your Career Path — Free</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image B</div>
+      <div class="headline">What if the reason you keep leaving jobs isn't the company — it's the type of work?</div>
+      <div class="body-copy">INFJ types thrive in depth, autonomy, and meaningful work. They fail in open offices, high-volume tasks, and emotionally draining environments.
+
+Projectors burn out when they generate energy all day rather than directing it.
+
+Life Path 7s need work that involves deep investigation — not surface-level output.
+
+If all three of those describe you, there's a reason every conventional job has felt slightly wrong.
+
+Your blueprint shows you the specific conditions where you'd actually thrive. Free to generate.</div>
+      <div class="cta-line">Generate Your Blueprint — Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Career content performs exceptionally well with 28-40 demographic experiencing quarter-life or mid-life career reconsideration. The INFJ/Projector/Life Path 7 example is extremely specific — this specificity is the hook.</div>
+</div>
+
+<div class="section-title">Warm Retargeting Ads — $9 Report Push</div>
+
+<!-- AD 6 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">6</div>
+      <div><div class="ad-title">The "You Left Something" Retarget</div><div class="ad-meta">Warm &bull; Quiz completers who didn't buy &bull; Direct response</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-warm">Warm</div><div class="tag tag-image">Image</div><div class="tag tag-video">Video</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">You saw 3 free sections of your blueprint. The other 5 are still locked.</div>
+      <div class="body-copy">Love Archetype. Career Matrix. Shadow Pattern. 2026 Forecast. Printable Identity Card.
+
+All personalized to your exact birth data and quiz answers.
+
+$9. One time. Instant access.
+
+The price goes up to $47 after this week.</div>
+      <div class="cta-line">Unlock the Full Report — $9</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#127916;</span> Video (UGC style)</div>
+      <div class="headline">I almost skipped the $9 upgrade and I'm so glad I didn't</div>
+      <div class="body-copy">*Person on camera, casual setting*
+
+"So I did the free COSMO blueprint and saw my three free reveals and they were... surprisingly accurate. Like, weirdly accurate.
+
+But I almost didn't pay the $9 for the full report because I figured it couldn't be that much more.
+
+The shadow pattern section alone was worth $100. I sat with it for like an hour. It described something about me I've never been able to articulate.
+
+Anyway. If you did the free one and didn't unlock the full report, just do it. It's $9."
+
+*CTA on screen: cosmo.app/results*</div>
+      <div class="cta-line">Unlock Full Report — $9</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Target: custom audience of blueprint page visitors (72hr window). The UGC testimonial format for warm retargeting consistently outperforms polished ads at this stage — shoot or commission 3-5 authentic testimonial videos.</div>
+</div>
+
+<!-- AD 7 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">7</div>
+      <div><div class="ad-title">The Price Anchor Retarget</div><div class="ad-meta">Warm &bull; Value framing &bull; Price-sensitive audience</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-warm">Warm</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image A</div>
+      <div class="headline">A 40-page personalized report combining 4 cosmic systems, for $9.</div>
+      <div class="body-copy">For context:
+A professional astrology reading: $150-$400
+An MBTI coaching session: $200+
+A Human Design reading: $100-$350
+A numerology consultation: $75-$200
+
+COSMO combines all four, personalizes it to your exact birth data, and delivers 40 pages of synthesized insight for nine dollars.
+
+The offer closes this week.</div>
+      <div class="cta-line">Get the Report — $9</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image B</div>
+      <div class="headline">$9 is the price of knowing. $0 is the price of staying confused.</div>
+      <div class="body-copy">Your blueprint shows you:
+• Why you keep burning out
+• What you're actually built for
+• The relationship pattern you keep recreating
+• What 2026 holds for your specific design
+
+40 pages. All 4 systems. Personalized to you.
+
+$9. One time. Instant delivery.</div>
+      <div class="cta-line">Unlock Everything — $9</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Price anchoring against professional consultation rates makes $9 feel almost absurd to decline. Works particularly well with audience that's already paid for other readings. Target: custom audience + lookalike of buyers.</div>
+</div>
+
+<!-- AD 8 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">8</div>
+      <div><div class="ad-title">The Testimonial Stack</div><div class="ad-meta">Warm &bull; Social proof &bull; Objection handling</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-warm">Warm</div><div class="tag tag-carousel">Carousel</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128257;</span> Carousel (5 testimonials)</div>
+      <div class="headline">What people say after they read their full blueprint</div>
+      <div class="body-copy">Slide 1: "I've done astrology, MBTI, and Human Design separately for years. COSMO was the first time everything clicked into one picture. My burnout finally makes sense." — Sophia R., Scorpio / Life Path 7 / INFJ / Projector
+
+Slide 2: "The career section made me put my phone down and stare at the ceiling for 10 minutes. Then I updated my resume." — Marcus T., Capricorn / Life Path 4 / ENTJ / Manifestor
+
+Slide 3: "The shadow pattern section described something about me I've never been able to put into words. I sent it to my therapist." — Jamie L., Virgo / Life Path 3 / ENFJ / Generator
+
+Slide 4: "I made my whole family do theirs. The relationship section explained every dynamic in our household." — Priya K., Libra / Life Path 2 / ENFP / Manifesting Generator
+
+Slide 5: "Bought it expecting generic horoscope stuff. Left completely unsettled in the best way. This is accurate in a way that's almost uncomfortable." — Alex M., Aquarius / Life Path 11 / INTP / Projector</div>
+      <div class="cta-line">Get Your Full Blueprint — $9</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Single Image Version</div>
+      <div class="headline">"This is accurate in a way that's almost uncomfortable."</div>
+      <div class="body-copy">"I've done astrology, MBTI, and Human Design separately for years. COSMO was the first time it all clicked into one picture. My burnout finally makes sense."
+— Sophia R., INFJ Projector
+
+"The career section made me put my phone down and stare at the ceiling."
+— Marcus T., ENTJ Manifestor
+
+"I sent the shadow pattern section to my therapist."
+— Jamie L., ENFJ Generator
+
+40 pages. All 4 systems. Personalized. $9.</div>
+      <div class="cta-line">Unlock Your Report — $9</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Including the type combinations (INFJ Projector, ENTJ Manifestor etc.) in testimonials creates self-recognition for readers who know their own types — they immediately locate themselves in the story.</div>
+</div>
+
+<!-- AD 9 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">9</div>
+      <div><div class="ad-title">Membership Cold / Warm</div><div class="ad-meta">Warm buyers &bull; $47/yr membership push</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-warm">Warm</div><div class="tag tag-image">Image</div><div class="tag tag-video">Video</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image</div>
+      <div class="headline">Your blueprint told you who you are. Now get a daily reading for who you're becoming.</div>
+      <div class="body-copy">COSMO Members get a personalized daily reading — their specific 4-system profile applied to what's actually happening cosmically that day.
+
+Not a generic horoscope. Your exact blueprint, applied to today.
+
+Plus: monthly forecasts, eclipse alerts, new moon practices for your type, and a members community organized by type combination.
+
+Founding rate: $47/year. $3.91/month.
+
+The founding cohort is almost full.</div>
+      <div class="cta-line">Become a Founding Member — $47/yr</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#127916;</span> Video Hook</div>
+      <div class="headline">What COSMO members get that non-members don't</div>
+      <div class="body-copy">*Screen recording of daily reading notification*
+
+"Every morning I get a reading like this:
+
+'Moon in Pisces activates your 5th house today — creative output flows easily. As a Projector, your energy peaks 10am-2pm. Your Ni is running hot — trust the first read, not the second-guess.'
+
+It's my 4-system blueprint applied to today specifically. Not Scorpio season stuff. MY chart, MY type, MY design, applied to TODAY.
+
+That's what COSMO membership is.
+
+$47/year. Less than $4/month. Founding rate closes soon."</div>
+      <div class="cta-line">Join as Founding Member</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Target report buyers (custom audience, 30-day window). The daily reading example in the video should be the actual sample from the upsell2 page — keep it consistent. Founding scarcity is real — close the founding rate on schedule.</div>
+</div>
+
+<!-- AD 10 -->
+<div class="ad-card">
+  <div class="ad-header">
+    <div class="ad-header-left">
+      <div class="ad-num">10</div>
+      <div><div class="ad-title">Quiz Abandoner Retarget</div><div class="ad-meta">Retarget &bull; Started quiz, didn't finish &bull; Completion hook</div></div>
+    </div>
+    <div class="tags"><div class="tag tag-retarget">Retarget</div><div class="tag tag-image">Image</div></div>
+  </div>
+  <div class="ad-formats">
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image A</div>
+      <div class="headline">You started your blueprint. You didn't finish it.</div>
+      <div class="body-copy">Your results are still waiting.
+
+It takes 2 more minutes to complete the quiz and see what all four systems say about you.
+
+No credit card. No commitment. Just your results.
+
+cosmo.app/quiz</div>
+      <div class="cta-line">Finish Your Blueprint — Free</div>
+    </div>
+    <div class="format">
+      <div class="format-label"><span>&#128247;</span> Static Image B</div>
+      <div class="headline">Curious what your blueprint says? You almost found out.</div>
+      <div class="body-copy">You started the COSMO quiz and got most of the way through.
+
+Your results — your sun sign synthesis, your life path reading, your Human Design type, your personality analysis — are calculated and waiting.
+
+Finish in 2 minutes. Free forever.</div>
+      <div class="cta-line">See Your Results — Free</div>
+    </div>
+  </div>
+  <div class="ad-notes"><strong>Notes:</strong> Quiz abandoners are your highest-intent audience. Target: custom audience of quiz page visitors who did NOT visit results page (48hr window). Keep the message extremely simple — remove friction, remind them they almost finished.</div>
+</div>
+
+</div>
+</body>
+</html>
