@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — Email Sequence</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text)}
+.top{background:var(--card);border-bottom:1px solid var(--border);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.top h1{font-size:18px;font-weight:700}
+.top p{font-size:13px;color:var(--muted)}
+.badge{display:inline-block;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 12px;border-radius:10px}
+.wrap{max-width:960px;margin:0 auto;padding:40px 24px 80px}
+.intro{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:32px}
+.intro h2{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--gold)}
+.intro p{font-size:14px;color:var(--muted);line-height:1.65}
+.intro .flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:16px;font-size:13px;font-weight:600}
+.flow-step{background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.15);color:var(--text);padding:6px 14px;border-radius:8px}
+.flow-arrow{color:var(--muted)}
+
+.email-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin-bottom:24px;position:relative}
+.email-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;border-radius:3px 0 0 3px}
+.e1::before{background:#c9a84c}.e2::before{background:#2ecc71}.e3::before{background:#9b59b6}
+.e4::before{background:#3498db}.e5::before{background:#e67e22}.e6::before{background:#e74c3c}.e7::before{background:#1abc9c}
+.email-meta{display:flex;align-items:center;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.email-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:#000;flex-shrink:0}
+.en1{background:#c9a84c}.en2{background:#2ecc71}.en3{background:#9b59b6}
+.en4{background:#3498db}.en5{background:#e67e22}.en6{background:#e74c3c}.en7{background:#1abc9c}
+.email-info h3{font-size:16px;font-weight:700;margin-bottom:3px}
+.email-timing{font-size:12px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap}
+.email-timing span{display:flex;align-items:center;gap:5px}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:1px;padding:2px 8px;border-radius:6px;text-transform:uppercase}
+.tag-welcome{background:rgba(201,168,76,.15);color:var(--gold)}
+.tag-deliver{background:rgba(46,204,113,.15);color:#2ecc71}
+.tag-story{background:rgba(155,89,182,.15);color:#c39bd3}
+.tag-upsell{background:rgba(52,152,219,.15);color:#85c1e9}
+.tag-nurture{background:rgba(230,126,34,.15);color:#f0a050}
+.tag-reengage{background:rgba(231,76,60,.15);color:#e88}
+.tag-close{background:rgba(26,188,156,.15);color:#1abc9c}
+
+.subject-line{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:16px}
+.sl-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.sl-main{font-size:15px;font-weight:700;color:#fff}
+.sl-alts{margin-top:8px}
+.sl-alts span{font-size:12px;color:var(--muted);display:block;padding:2px 0}
+.sl-alts span::before{content:'Alt: ';color:var(--border)}
+
+.email-body{background:#080814;border:1px solid var(--border);border-radius:10px;padding:24px;font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap;font-family:'Inter',sans-serif}
+.email-body strong{color:var(--gold)}
+
+.notes{background:rgba(201,168,76,.04);border:1px solid rgba(201,168,76,.12);border-radius:10px;padding:16px;margin-top:16px}
+.notes-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.notes p{font-size:13px;color:var(--muted);line-height:1.6}
+.notes ul{list-style:none;margin-top:8px}
+.notes ul li{font-size:13px;color:var(--muted);padding:3px 0;padding-left:14px;position:relative}
+.notes ul li::before{content:'›';position:absolute;left:0;color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div><h1>COSMO Email Sequence</h1><p>7-email automated sequence &mdash; from signup to re-engagement</p></div>
+  <div class="badge">Production Ready</div>
+</div>
+
+<div class="wrap">
+  <div class="intro">
+    <h2>Sequence Architecture</h2>
+    <p>This is a 7-email automated sequence triggered immediately on form submission. Emails 1–3 are the core delivery and story arc. Emails 4–5 are the upsell push. Emails 6–7 are re-engagement for non-buyers. Load into ConvertKit, Beehiiv, or Klaviyo and connect to your Stripe webhook for purchase-based branching.</p>
+    <div class="flow">
+      <div class="flow-step">Signup</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 1 (Instant)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 2 (Day 1)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 3 (Day 3)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 4 (Day 5)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 5 (Day 7)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 6 (Day 10)</div><div class="flow-arrow">→</div>
+      <div class="flow-step">Email 7 (Day 14)</div>
+    </div>
+  </div>
+
+  <!-- EMAIL 1 -->
+  <div class="email-card e1">
+    <div class="email-meta">
+      <div class="email-num en1">1</div>
+      <div class="email-info">
+        <h3>Welcome + Instant Delivery</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Immediately on signup</span>
+          <span><div class="tag tag-welcome">Welcome</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">Your COSMO Blueprint is ready, {{first_name}} ✨</div>
+      <div class="sl-alts">
+        <span>{{first_name}}, your cosmic profile just hit different</span>
+        <span>4 systems. 1 truth. Your blueprint is inside.</span>
+      </div>
+    </div>
+    <div class="email-body">Hi {{first_name}},
+
+Your blueprint is ready.
+
+We just finished cross-referencing your birth data across all four systems — Astrology, Numerology, Personality Science, and Human Design — and what came back is one of the most specific profiles we've generated.
+
+<strong>→ View your free blueprint here: [LINK TO RESULTS PAGE]</strong>
+
+Three free insights are unlocked immediately:
+• Your core identity conflict (the tension all 4 systems agree on)
+• Your Life Path mission (what you came here to do)
+• Your energy strategy (why you work the way you do)
+
+The full 40-page report — including your Love Archetype, Career Matrix, Shadow Pattern, and 2026 Forecast — is available for a one-time offer of $9. That offer expires with the timer on your results page.
+
+Go read what the systems found.
+
+— The COSMO Team
+
+P.S. The section most people say hits hardest is the Shadow Pattern. It's the last thing we want to see about ourselves, and usually the most accurate thing in the whole report.</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>Keep this email short — they want to get to the results page, not read a long email</li>
+        <li>The P.S. primes them for the shadow section before they even get there — increases time on page</li>
+        <li>Subject line A/B test: personalized name vs. curiosity hook</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 2 -->
+  <div class="email-card e2">
+    <div class="email-meta">
+      <div class="email-num en2">2</div>
+      <div class="email-info">
+        <h3>The 4-System Explainer + Social Proof</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 1 (24 hours after signup)</span>
+          <span><div class="tag tag-deliver">Delivery</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">Why 4 systems instead of just one</div>
+      <div class="sl-alts">
+        <span>The problem with only doing astrology (or only MBTI)</span>
+        <span>Here's why single-system readings miss so much</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+Most people pick one system and stop there.
+
+They get their birth chart read. Or they do MBTI. Or they discover Human Design and go deep. And each system reveals something real — but none of them alone tells the complete story.
+
+Here's what each system misses on its own:
+
+<strong>Astrology</strong> shows your cosmic context and timing — but doesn't explain HOW your mind works.
+<strong>MBTI/Personality Type</strong> shows your cognitive architecture — but doesn't explain WHY you're designed that way or what to do with it.
+<strong>Numerology</strong> shows your soul's mission and timing cycles — but not your energy mechanics.
+<strong>Human Design</strong> shows your energy type and strategy — but not your psychological pattern or life purpose.
+
+COSMO runs all four simultaneously and looks for where they converge.
+
+Those convergence points — the things multiple systems independently agree on — are your deepest truths.
+
+For example: if your Scorpio sun AND your INFJ type AND your Life Path 7 ALL point to depth as your core operating mode — that's not coincidence. That's signal.
+
+That's the kind of cross-reference your free blueprint started to show you. The full report goes all the way in.
+
+<strong>→ Unlock the full 40-page report here: [LINK TO OTO PAGE] ($9)</strong>
+
+— The COSMO Team</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>This email educates and pre-sells simultaneously — it justifies the 4-system approach before asking for money</li>
+        <li>The "convergence points" framing is key — it's the core value proposition in plain language</li>
+        <li>CTA goes to the $9 OTO page directly</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 3 -->
+  <div class="email-card e3">
+    <div class="email-meta">
+      <div class="email-num en3">3</div>
+      <div class="email-info">
+        <h3>Origin Story + Founder Credibility</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 3</span>
+          <span><div class="tag tag-story">Story</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">Why I built COSMO (and what I was trying to figure out)</div>
+      <div class="sl-alts">
+        <span>The thing I couldn't find anywhere that made me build this</span>
+        <span>I spent 3 years doing this separately. Then I combined it.</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+Three years ago I was doing what a lot of people do.
+
+I had my birth chart done. I'd taken every MBTI test I could find. I'd discovered Human Design and spent weeks going down that rabbit hole. I was deep into numerology, reading everything about my Life Path 7.
+
+Each reading was fascinating. Each one gave me something real.
+
+But none of them talked to each other.
+
+I'd get an astrology reading that said one thing about my purpose, and a Human Design reading that said something slightly different, and I'd have to hold both of those in my head and try to figure out which one was more accurate.
+
+The answer, I eventually realized, was: both. And neither alone.
+
+What I was looking for was a synthesis — something that cross-referenced all the systems and told me where they agreed. Because that agreement? That's where the signal is.
+
+That's what COSMO became.
+
+847,000 blueprints later, the thing I hear most often is some version of "this is the first reading that felt completely accurate." Not partially accurate. Not resonant in places. <strong>Completely accurate.</strong>
+
+That's because we're not guessing at one angle. We're triangulating from four.
+
+Your free blueprint gave you three reveals. The full report goes eight sections deep.
+
+<strong>→ Get the complete report: [LINK TO OTO] — $9 one time</strong>
+
+Talk soon,
+[Founder Name]
+
+P.S. The section I'm most proud of is the 2026 Forecast. Most forecasts are generic. Yours is built specifically from your Personal Year number, your current transits, and your HD cycle. Nobody else combines all three.</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>This is the trust-builder email — founder story, authentic struggle, credibility through specificity</li>
+        <li>"847,000 blueprints" is the social proof number — update to match real figures</li>
+        <li>P.S. calls out the most differentiated feature (combined forecast) to drive curiosity</li>
+        <li>Replace [Founder Name] with real name and optionally add a photo in the ESP</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 4 -->
+  <div class="email-card e4">
+    <div class="email-meta">
+      <div class="email-num en4">4</div>
+      <div class="email-info">
+        <h3>Hard Sell — $9 Offer with Urgency</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 5 (non-buyers only)</span>
+          <span><div class="tag tag-upsell">Upsell</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">{{first_name}}, your $9 report is still here (but not for long)</div>
+      <div class="sl-alts">
+        <span>Closing this offer for {{first_name}} in 48 hours</span>
+        <span>The $9 window closes this week</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+Quick note.
+
+The $9 offer on your complete blueprint report is still available — but I'm closing it at the end of this week for new signups.
+
+If you haven't grabbed it yet, here's exactly what you'd be getting:
+
+<strong>The Complete COSMO Blueprint (40 pages, personalized to your birth data):</strong>
+
+Section 1: Core Identity Matrix — all 4 systems synthesized
+Section 2: Astrological Signature — Sun, Moon, Venus, Mars, Saturn
+Section 3: Numerology Profile — Life Path, Expression, Soul Urge, 2026 forecast
+Section 4: Personality Type Deep Dive — cognitive functions, strengths, shadow
+Section 5: Human Design Blueprint — type, strategy, authority, centers
+Section 6: Love Archetype — what you need, what you keep recreating, how to break the pattern
+Section 7: Shadow Pattern — the unconscious behavior that's been running your biggest decisions
+Section 8: 2026 Month-by-Month Forecast — built from transits + personal year + HD cycle
+
+All of that, personalized to you, for $9.
+
+The full price after this week is $47.
+
+<strong>→ Grab it now: [LINK TO OTO PAGE]</strong>
+
+— COSMO
+
+P.S. The Love Archetype section (Section 6) is the one people forward to their partners. Just saying.</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>Send ONLY to non-buyers — segment by purchase tag in your ESP</li>
+        <li>The bulleted list of all 8 sections does the selling — makes the $9 feel ridiculous not to take</li>
+        <li>Urgency is real — actually close the offer or the credibility erodes</li>
+        <li>P.S. is a virality hook — people do forward the love section</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 5 -->
+  <div class="email-card e5">
+    <div class="email-meta">
+      <div class="email-num en5">5</div>
+      <div class="email-info">
+        <h3>Membership Offer — $47/yr</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 7 (report buyers only)</span>
+          <span><div class="tag tag-upsell">Upsell</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">Your blueprint is static. Your life isn't.</div>
+      <div class="sl-alts">
+        <span>What if you got a personalized reading every single morning?</span>
+        <span>{{first_name}}, this is what members get that you don't</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+Your blueprint is a snapshot.
+
+It tells you who you are, what you're built for, and what patterns to watch. It's designed to be useful for years — and it is.
+
+But the cosmos doesn't freeze when your report gets generated.
+
+Right now, Saturn is moving through a section of your chart that affects how you handle authority and long-term commitments. Mercury is about to go retrograde, which hits your cognitive style in a specific way based on your MBTI type. And your Personal Year number creates a tide that shapes every month of 2026 differently.
+
+COSMO Members get this daily.
+
+Every morning: a short, personalized reading that applies your specific 4-system profile to what's actually happening cosmically that day. Not a generic horoscope. Not "Scorpios should be careful today." Your exact blueprint, applied to today.
+
+Plus: monthly deep-dives, eclipse alerts, new moon practices built for your type, and a members community organized by type combinations.
+
+The founding rate is $47/year — $3.91/month.
+
+That offer closes when this founding cohort fills.
+
+<strong>→ Become a founding member: [LINK TO UPSELL2 PAGE]</strong>
+
+— COSMO
+
+P.S. The most common thing members say after their first month: "I stopped being surprised by my own reactions." That's what happens when you understand the pattern before it happens.</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>Send ONLY to report buyers — segment by purchase tag</li>
+        <li>"Your blueprint is static. Your life isn't." is the hook — it's the reason to upgrade</li>
+        <li>Specificity of examples (Saturn, Mercury retrograde) builds credibility fast</li>
+        <li>P.S. is the outcome statement — what membership actually delivers emotionally</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 6 -->
+  <div class="email-card e6">
+    <div class="email-meta">
+      <div class="email-num en6">6</div>
+      <div class="email-info">
+        <h3>Re-engagement — The Missed Insight</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 10 (non-buyers only)</span>
+          <span><div class="tag tag-reengage">Re-engage</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">The section most people say changed something for them</div>
+      <div class="sl-alts">
+        <span>{{first_name}}, one specific thing from your blueprint</span>
+        <span>Did you read the shadow pattern section?</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+I want to tell you about one specific section of your full blueprint.
+
+Section 7 is called the Shadow Pattern.
+
+It's the section we almost didn't include, because it's uncomfortable. It names the unconscious behavior that's been running your biggest decisions — the pattern you can see clearly in other people but rarely in yourself.
+
+For your profile — your specific combination of sun sign, life path, personality type, and HD energy — the shadow pattern is about what happens when you give far more than you receive, for long enough.
+
+It doesn't explode. It doesn't announce itself. It just quietly withdraws. Builds a wall. Closes a door without ceremony.
+
+And then you're gone from something — a relationship, a job, a version of yourself — and you're not even entirely sure when it happened.
+
+The section doesn't just name the pattern. It shows you exactly what triggers it, what it costs you, and what the specific daily practices are for your type that interrupt it before it runs.
+
+That's one of the eight sections in the full report.
+
+<strong>→ It's still $9: [LINK TO OTO PAGE]</strong>
+
+— COSMO</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>This is a re-engagement email that works by being emotionally specific rather than promotional</li>
+        <li>It describes the shadow pattern behavior in enough detail that it feels personal — this is intentional</li>
+        <li>The INFJ/Projector "door slam" is what's being described — adapt the copy for other type combinations via dynamic tags if possible</li>
+        <li>No urgency here — just depth. The sale comes from resonance.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- EMAIL 7 -->
+  <div class="email-card e7">
+    <div class="email-meta">
+      <div class="email-num en7">7</div>
+      <div class="email-info">
+        <h3>Final Close — Last Chance + Breakup Frame</h3>
+        <div class="email-timing">
+          <span>&#128336; Send: Day 14 (non-buyers only)</span>
+          <span><div class="tag tag-close">Final Close</div></span>
+        </div>
+      </div>
+    </div>
+    <div class="subject-line">
+      <div class="sl-label">Subject Line</div>
+      <div class="sl-main">Closing your blueprint file, {{first_name}}</div>
+      <div class="sl-alts">
+        <span>Last email about this, {{first_name}}</span>
+        <span>I'm going to stop sending these now</span>
+      </div>
+    </div>
+    <div class="email-body">{{first_name}},
+
+This is the last email I'll send about your blueprint.
+
+I'm not going to keep pitching you. You've seen the offer, you know what's in it, and if it was going to resonate, it already has.
+
+But I want to leave you with one thing.
+
+You took the time to enter your birth data, go through the quiz, and read your free results. That's not nothing. Most people don't do that. There's a reason you did.
+
+Maybe it was curiosity. Maybe it was the feeling that you haven't quite put your finger on what's actually driving you — why the patterns keep repeating, why the burnout keeps coming, why the relationships keep ending the same way.
+
+The blueprint exists because those patterns have answers. Not spiritual bypassing. Not "just think positive." Actual answers rooted in the mechanics of who you are — confirmed across four independent systems.
+
+If you ever want those answers, the report is here: [LINK TO OTO PAGE]
+
+The price will be higher next time you see it. But more importantly — the right time to understand yourself is now, not eventually.
+
+Take care of yourself.
+
+— COSMO
+
+P.S. If you're not interested, no hard feelings. Click here to unsubscribe from COSMO emails: [UNSUBSCRIBE LINK]. We'd rather have an engaged list than a big one.</div>
+    <div class="notes">
+      <div class="notes-label">Copywriter Notes</div>
+      <ul>
+        <li>The "breakup" email consistently outperforms harder sales emails at day 14 — it converts through genuine release, not pressure</li>
+        <li>The P.S. unsubscribe offer is intentional — it cleans the list and paradoxically increases opens from people who don't unsubscribe</li>
+        <li>"The right time to understand yourself is now, not eventually" is the final close — soft but direct</li>
+        <li>After this email, non-buyers move to a long-term nurture sequence (monthly value emails)</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
