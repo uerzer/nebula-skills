@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>COSMO — Your Cosmic Quiz</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--gold:#c9a84c;--dark:#08080f;--card:#0f0f1e;--border:#1e1e35;--text:#e8e8f0;--muted:#7777aa}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+nav{display:flex;justify-content:center;padding:20px;border-bottom:1px solid var(--border)}
+.logo{font-size:20px;font-weight:900;letter-spacing:4px;color:var(--gold)}
+.logo em{color:#fff;font-style:normal}
+.progress-wrap{padding:24px 20px 0;max-width:640px;margin:0 auto}
+.progress-top{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:8px}
+.progress-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold),#e8c060);border-radius:4px;transition:width .4s ease}
+.quiz-wrap{max-width:640px;margin:0 auto;padding:40px 20px 80px}
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:40px;display:none;animation:fadeIn .3s ease}
+.q-card.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:16px}
+.q-text{font-family:'Playfair Display',serif;font-size:clamp(20px,3vw,26px);line-height:1.35;margin-bottom:10px}
+.q-sub{font-size:14px;color:var(--muted);margin-bottom:32px;line-height:1.5}
+.options{display:flex;flex-direction:column;gap:12px}
+.opt{background:#080814;border:1px solid var(--border);border-radius:12px;padding:16px 20px;cursor:pointer;transition:all .2s;text-align:left;font-size:15px;color:var(--text);font-family:'Inter',sans-serif;display:flex;align-items:center;gap:14px}
+.opt:hover{border-color:var(--gold);background:rgba(201,168,76,.06)}
+.opt.selected{border-color:var(--gold);background:rgba(201,168,76,.12);color:#fff}
+.opt-letter{width:28px;height:28px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--muted);flex-shrink:0;transition:all .2s}
+.opt.selected .opt-letter{background:var(--gold);border-color:var(--gold);color:#000}
+.opt-text{flex:1;line-height:1.4}
+.opt-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.opt.selected .opt-sub{color:rgba(201,168,76,.7)}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+.btn-back{background:none;border:1px solid var(--border);border-radius:10px;padding:12px 24px;color:var(--muted);font-size:14px;cursor:pointer;transition:all .2s}
+.btn-back:hover{border-color:var(--muted);color:var(--text)}
+.btn-next{background:linear-gradient(135deg,var(--gold),#e8c060);border:none;border-radius:10px;padding:12px 32px;color:#000;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(201,168,76,.4)}
+.btn-next:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.calculating{display:none;text-align:center;padding:80px 20px}
+.calculating.active{display:block}
+.calc-title{font-family:'Playfair Display',serif;font-size:32px;margin-bottom:16px}
+.calc-sub{color:var(--muted);margin-bottom:48px}
+.calc-items{max-width:360px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.calc-item{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px 20px}
+.calc-icon{font-size:20px;width:32px;text-align:center}
+.calc-label{font-size:14px;font-weight:600;flex:1}
+.calc-status{font-size:12px;color:var(--muted)}
+.calc-status.done{color:#2ecc71}
+.spinner{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<nav><div class="logo">COS<em>MO</em></div></nav>
+
+<div class="progress-wrap">
+  <div class="progress-top"><span id="q-label">Question 1 of 8</span><span id="q-pct">12%</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="pbar" style="width:12%"></div></div>
+</div>
+
+<div class="quiz-wrap" id="quiz-wrap">
+
+  <!-- Q1 -->
+  <div class="q-card active" id="q1">
+    <div class="q-num">Question 1 of 8 &mdash; Energy &amp; Drive</div>
+    <div class="q-text">When you have a full day with no obligations, you naturally gravitate toward...</div>
+    <div class="q-sub">Don't overthink it. Go with your gut.</div>
+    <div class="options">
+      <div class="opt" onclick="select(1,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Diving into a solo project or creative work<div class="opt-sub">Something you've been meaning to do for yourself</div></div>
+      </div>
+      <div class="opt" onclick="select(1,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Making plans with people you care about<div class="opt-sub">Energy comes from connection and shared experiences</div></div>
+      </div>
+      <div class="opt" onclick="select(1,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">A mix &mdash; some alone time then some social<div class="opt-sub">You recharge in waves, not all one way</div></div>
+      </div>
+      <div class="opt" onclick="select(1,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Waiting to see what feels right in the moment<div class="opt-sub">You don't like locking things in ahead of time</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <div></div>
+      <button class="btn-next" id="next1" onclick="next(1)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="q-card" id="q2">
+    <div class="q-num">Question 2 of 8 &mdash; Decision Making</div>
+    <div class="q-text">When you need to make an important decision, what do you trust most?</div>
+    <div class="q-sub">Your real default, not the one that sounds wise.</div>
+    <div class="options">
+      <div class="opt" onclick="select(2,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Logic and data &mdash; I research and reason it out<div class="opt-sub">Feelings are noise. Facts are facts.</div></div>
+      </div>
+      <div class="opt" onclick="select(2,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">My gut feeling in the moment<div class="opt-sub">My body knows before my brain catches up</div></div>
+      </div>
+      <div class="opt" onclick="select(2,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">What feels right emotionally over time<div class="opt-sub">I need to sit with it until it settles</div></div>
+      </div>
+      <div class="opt" onclick="select(2,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Other people's perspectives &mdash; I seek counsel<div class="opt-sub">Trusted voices help me see what I'm missing</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(2)">&#8592; Back</button>
+      <button class="btn-next" id="next2" onclick="next(2)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="q-card" id="q3">
+    <div class="q-num">Question 3 of 8 &mdash; Purpose &amp; Drive</div>
+    <div class="q-text">What do you secretly suspect you're here to do in this life?</div>
+    <div class="q-sub">The thing that keeps quietly pulling at you.</div>
+    <div class="options">
+      <div class="opt" onclick="select(3,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Build or create something that outlasts you<div class="opt-sub">Leave a tangible mark on the world</div></div>
+      </div>
+      <div class="opt" onclick="select(3,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Guide or heal others &mdash; be a light for people<div class="opt-sub">Your purpose is deeply relational</div></div>
+      </div>
+      <div class="opt" onclick="select(3,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Master something &mdash; go deeper than anyone else<div class="opt-sub">You're driven by knowledge, craft, or expertise</div></div>
+      </div>
+      <div class="opt" onclick="select(3,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Disrupt or change the system somehow<div class="opt-sub">You feel like things need to be different</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(3)">&#8592; Back</button>
+      <button class="btn-next" id="next3" onclick="next(3)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="q-card" id="q4">
+    <div class="q-num">Question 4 of 8 &mdash; Relationships</div>
+    <div class="q-text">In relationships, your deepest unspoken need is...</div>
+    <div class="q-sub">What you rarely admit but always feel.</div>
+    <div class="options">
+      <div class="opt" onclick="select(4,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">To be truly seen and understood<div class="opt-sub">Not just liked &mdash; actually gotten</div></div>
+      </div>
+      <div class="opt" onclick="select(4,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Freedom and space within the connection<div class="opt-sub">Closeness without feeling caged</div></div>
+      </div>
+      <div class="opt" onclick="select(4,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Stability and consistency &mdash; I need to feel safe<div class="opt-sub">Unpredictability is deeply unsettling</div></div>
+      </div>
+      <div class="opt" onclick="select(4,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">To grow together &mdash; a partner in evolution<div class="opt-sub">Stagnant relationships drain me</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(4)">&#8592; Back</button>
+      <button class="btn-next" id="next4" onclick="next(4)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="q-card" id="q5">
+    <div class="q-num">Question 5 of 8 &mdash; Shadow &amp; Blocks</div>
+    <div class="q-text">The pattern that keeps showing up in your life even when you don't want it to...</div>
+    <div class="q-sub">Be honest. This is the one that matters most.</div>
+    <div class="options">
+      <div class="opt" onclick="select(5,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Overgiving until you're depleted, then resenting it<div class="opt-sub">You give too much and get too little</div></div>
+      </div>
+      <div class="opt" onclick="select(5,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Starting strong then self-sabotaging near the finish<div class="opt-sub">Something pulls you away just before the win</div></div>
+      </div>
+      <div class="opt" onclick="select(5,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Staying in situations too long out of loyalty or fear<div class="opt-sub">Leaving feels like failure even when staying hurts</div></div>
+      </div>
+      <div class="opt" onclick="select(5,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Burning bright then disappearing &mdash; cycle of intensity<div class="opt-sub">All in, then completely gone</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(5)">&#8592; Back</button>
+      <button class="btn-next" id="next5" onclick="next(5)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="q-card" id="q6">
+    <div class="q-num">Question 6 of 8 &mdash; Work &amp; Energy</div>
+    <div class="q-text">How do you naturally work best?</div>
+    <div class="q-sub">Your honest default, not the ideal you aspire to.</div>
+    <div class="options">
+      <div class="opt" onclick="select(6,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Deep focused sprints &mdash; long uninterrupted sessions<div class="opt-sub">Flow state is your superpower</div></div>
+      </div>
+      <div class="opt" onclick="select(6,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Collaboration &mdash; ideas get better when shared<div class="opt-sub">You think out loud with others</div></div>
+      </div>
+      <div class="opt" onclick="select(6,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Systems and structure &mdash; processes, not chaos<div class="opt-sub">You need a clear framework to perform</div></div>
+      </div>
+      <div class="opt" onclick="select(6,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Bursts of inspired action, then rest &mdash; nonlinear<div class="opt-sub">You can't force it. You wait for the wave.</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(6)">&#8592; Back</button>
+      <button class="btn-next" id="next6" onclick="next(6)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="q-card" id="q7">
+    <div class="q-num">Question 7 of 8 &mdash; Perception</div>
+    <div class="q-text">People who know you well would say your biggest strength is...</div>
+    <div class="q-sub">The thing people come to you for.</div>
+    <div class="options">
+      <div class="opt" onclick="select(7,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Your ability to see the big picture nobody else sees<div class="opt-sub">Pattern recognition, vision, future-thinking</div></div>
+      </div>
+      <div class="opt" onclick="select(7,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Your emotional intelligence &mdash; you just *get* people<div class="opt-sub">Reading rooms, reading energy, knowing without words</div></div>
+      </div>
+      <div class="opt" onclick="select(7,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Your reliability &mdash; you do what you say<div class="opt-sub">People trust you because you never drop the ball</div></div>
+      </div>
+      <div class="opt" onclick="select(7,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Your creativity &mdash; you see possibilities others don't<div class="opt-sub">You make something from nothing</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(7)">&#8592; Back</button>
+      <button class="btn-next" id="next7" onclick="next(7)" disabled>Continue &rarr;</button>
+    </div>
+  </div>
+
+  <!-- Q8 -->
+  <div class="q-card" id="q8">
+    <div class="q-num">Question 8 of 8 &mdash; The Core</div>
+    <div class="q-text">At your deepest level, what do you believe you're still becoming?</div>
+    <div class="q-sub">The version of yourself you can sense but haven't fully stepped into yet.</div>
+    <div class="options">
+      <div class="opt" onclick="select(8,'A')">
+        <div class="opt-letter">A</div>
+        <div class="opt-text">Someone who leads without needing approval<div class="opt-sub">Confident in your authority, unbothered by doubt</div></div>
+      </div>
+      <div class="opt" onclick="select(8,'B')">
+        <div class="opt-letter">B</div>
+        <div class="opt-text">Someone who trusts themselves completely<div class="opt-sub">No more second-guessing, no more shrinking</div></div>
+      </div>
+      <div class="opt" onclick="select(8,'C')">
+        <div class="opt-letter">C</div>
+        <div class="opt-text">Someone who has found their one true calling<div class="opt-sub">The clarity of knowing exactly what you're for</div></div>
+      </div>
+      <div class="opt" onclick="select(8,'D')">
+        <div class="opt-letter">D</div>
+        <div class="opt-text">Someone at peace &mdash; with yourself and your past<div class="opt-sub">Done carrying what was never yours to carry</div></div>
+      </div>
+    </div>
+    <div class="nav-row">
+      <button class="btn-back" onclick="back(8)">&#8592; Back</button>
+      <button class="btn-next" id="next8" onclick="calculate()" disabled>Calculate My Blueprint &rarr;</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- CALCULATING SCREEN -->
+<div class="calculating" id="calculating">
+  <div class="calc-title">Calculating Your Blueprint...</div>
+  <div class="calc-sub">Cross-referencing all four systems with your birth data</div>
+  <div class="calc-items">
+    <div class="calc-item" id="ci1">
+      <div class="calc-icon">&#9728;&#65039;</div>
+      <div class="calc-label">Astrology Chart</div>
+      <div class="spinner" id="sp1"></div>
+      <div class="calc-status" id="cs1" style="display:none">&#10003; Complete</div>
+    </div>
+    <div class="calc-item" id="ci2">
+      <div class="calc-icon">&#8734;&#65039;</div>
+      <div class="calc-label">Numerology Profile</div>
+      <div class="spinner" id="sp2"></div>
+      <div class="calc-status" id="cs2" style="display:none">&#10003; Complete</div>
+    </div>
+    <div class="calc-item" id="ci3">
+      <div class="calc-icon">&#9670;&#65039;</div>
+      <div class="calc-label">Personality Type</div>
+      <div class="spinner" id="sp3"></div>
+      <div class="calc-status" id="cs3" style="display:none">&#10003; Complete</div>
+    </div>
+    <div class="calc-item" id="ci4">
+      <div class="calc-icon">&#10022;&#65039;</div>
+      <div class="calc-label">Human Design Chart</div>
+      <div class="spinner" id="sp4"></div>
+      <div class="calc-status" id="cs4" style="display:none">&#10003; Complete</div>
+    </div>
+    <div class="calc-item" id="ci5">
+      <div class="calc-icon">&#128161;</div>
+      <div class="calc-label">Cross-System Analysis</div>
+      <div class="spinner" id="sp5"></div>
+      <div class="calc-status done" id="cs5" style="display:none">&#10003; Blueprint Ready</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const answers = {};
+const userData = JSON.parse(localStorage.getItem('cosmo') || '{}');
+
+function select(q, val) {
+  answers[q] = val;
+  document.querySelectorAll(`#q${q} .opt`).forEach(o => o.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+  document.getElementById(`next${q}`).disabled = false;
+}
+
+function next(q) {
+  if (!answers[q]) return;
+  document.getElementById(`q${q}`).classList.remove('active');
+  document.getElementById(`q${q+1}`).classList.add('active');
+  updateProgress(q+1);
+}
+
+function back(q) {
+  document.getElementById(`q${q}`).classList.remove('active');
+  document.getElementById(`q${q-1}`).classList.add('active');
+  updateProgress(q-1);
+}
+
+function updateProgress(q) {
+  const pct = Math.round((q / 8) * 100);
+  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('q-label').textContent = `Question ${q} of 8`;
+  document.getElementById('q-pct').textContent = pct + '%';
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function calculate() {
+  document.getElementById('quiz-wrap').style.display = 'none';
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.getElementById('calculating').classList.add('active');
+
+  // Compute scores from birth data
+  const month = parseInt(userData.month) || 6;
+  const day = parseInt(userData.day) || 15;
+  const year = parseInt(userData.year) || 1990;
+
+  // Life path number
+  const digits = (month + day + year).toString().split('').map(Number);
+  let lp = digits.reduce((a,b) => a+b, 0);
+  while (lp > 9 && lp !== 11 && lp !== 22 && lp !== 33) {
+    lp = lp.toString().split('').map(Number).reduce((a,b) => a+b, 0);
+  }
+
+  // Sun sign from month/day
+  const sunSigns = ['Capricorn','Aquarius','Pisces','Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius'];
+  const sunCutoffs = [20,19,20,20,21,21,22,23,23,23,22,22];
+  let sunIdx = month - 1;
+  if (day <= sunCutoffs[sunIdx]) sunIdx = (sunIdx - 1 + 12) % 12;
+  const sunSign = sunSigns[sunIdx];
+
+  // MBTI from answers
+  const ei = (answers[1]==='A'||answers[1]==='C') ? 'I' : 'E';
+  const ns = (answers[7]==='A'||answers[7]==='D') ? 'N' : 'S';
+  const tf = (answers[2]==='A') ? 'T' : 'F';
+  const jp = (answers[6]==='C'||answers[6]==='A') ? 'J' : 'P';
+  const mbti = ei+ns+tf+jp;
+
+  // HD type from answers
+  const hdTypes = ['Generator','Projector','Manifestor','Manifesting Generator','Reflector'];
+  const hdMap = {A:'Generator',B:'Projector',C:'Manifestor',D:'Manifesting Generator'};
+  const hdType = hdMap[answers[6]] || 'Generator';
+
+  // Store results
+  const results = { sunSign, lifePath: lp, mbti, hdType, answers };
+  localStorage.setItem('cosmo_results', JSON.stringify({...userData, ...results}));
+
+  // Animate calculations
+  const steps = [1,2,3,4,5];
+  steps.forEach((s, i) => {
+    setTimeout(() => {
+      document.getElementById(`sp${s}`).style.display = 'none';
+      const cs = document.getElementById(`cs${s}`);
+      cs.style.display = 'block';
+      if (s === 5) {
+        setTimeout(() => { window.location.href = 'results.html'; }, 800);
+      }
+    }, 1200 + i * 900);
+  });
+}
+</script>
+</body>
+</html>
